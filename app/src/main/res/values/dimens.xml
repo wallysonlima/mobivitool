@@ -5,4 +5,7 @@
     <dimen name="nav_header_vertical_spacing">16dp</dimen>
     <dimen name="nav_header_height">160dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="text_layout">24dp</dimen>
+    <dimen name="header_layout">140dp</dimen>
+    <dimen name="header_text">20dp</dimen>
 </resources>

@@ -1,6 +1,5 @@
-function showPieChart(dataset, height, width)
+function showTimelineChart(dataset, height, width)
 {
-    alert("Entrou Aqui !!\n");
     var widthScale = d3.scale.linear()
                   .domain([0, 90])
                   .range([0, width]);

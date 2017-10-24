@@ -1,5 +1,10 @@
-function showTimelineChart(dataset, height, width)
+function drawTimelineChart(dataArray, width, height)
 {
+    /*var dataArray[] = Android.getDataSet();
+    int width = Android.getWidth();
+    int height = Android.getHeight();
+    */
+
     var widthScale = d3.scale.linear()
                   .domain([0, 90])
                   .range([0, width]);

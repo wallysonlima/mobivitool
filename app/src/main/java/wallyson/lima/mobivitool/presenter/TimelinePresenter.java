@@ -9,30 +9,37 @@ import android.webkit.WebView;
  */
 
 public class TimelinePresenter {
-    TimelineInterface mView;
-    Context c;
+    private TimelineInterface mView;
+    private Context c;
+    private WebView webview;
 
-    public TimelinePresenter(TimelineInterface view, Context context) {
+    public TimelinePresenter(TimelineInterface view, Context context, WebView webview) {
         mView = view;
         c = context;
+        this.webview = webview;
     }
 
     //Get the dataset
     @JavascriptInterface
-    public int[] getDataSet() {
+    public String getDataSet() {
         int dataset[] = new int[] {5,10,15,20,35};
-        return dataset;
+
+        String sb = "";
+        for(int i=0;i<dataset.length;i++)
+            sb += (dataset[i]+",");
+
+        return sb;
     }
 
     //Get width webview
     @JavascriptInterface
-    public int getWidth(WebView webview) {
+    public int getWidth() {
         return webview.getWidth();
     }
 
     //Get height webview
     @JavascriptInterface
-    public int getHeight(WebView webview) {
+    public int getHeight() {
         return webview.getHeight();
     }
 

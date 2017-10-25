@@ -41,7 +41,7 @@ public class TimelineActivity extends AppCompatActivity implements TimelineInter
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         webview = (WebView) findViewById(R.id.webview);
-        mPresenter = new TimelinePresenter(this, this.getApplicationContext() );
+        mPresenter = new TimelinePresenter(this, this.getApplicationContext(), webview);
 
         //load the chart
         loadChart("html/timelineChart.html");
@@ -57,12 +57,16 @@ public class TimelineActivity extends AppCompatActivity implements TimelineInter
         WebSettings webSettings =
                 webview.getSettings();
 
+        webview.addJavascriptInterface(mPresenter, "Android");
+        webview.setWebContentsDebuggingEnabled(true);
+
         webSettings.setJavaScriptEnabled(true);
         webSettings.setAllowUniversalAccessFromFileURLs(true);
         webSettings.setAllowFileAccessFromFileURLs(true);
         webSettings.setDomStorageEnabled(true);
         webSettings.setLoadWithOverviewMode(true);
         webSettings.setDefaultTextEncodingName("utf-8");
+
 
         AssetManager mgr = getBaseContext().getAssets();
         try {

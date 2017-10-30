@@ -33,7 +33,7 @@ public class TimelineActivity extends AppCompatActivity implements TimelineInter
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.timelineLayout);
         mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
 
         mDrawerLayout.addDrawerListener(mToggle);

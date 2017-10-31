@@ -34,14 +34,14 @@ public class ZoomActivity extends AppCompatActivity implements ZoomInterface {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_zoom);
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.timelineLayout);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.zoomLayout);
         mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
 
         mDrawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        webview = (WebView) findViewById(R.id.webview);
+        webview = (WebView) findViewById(R.id.webviewzoom);
         mPresenter = new ZoomPresenter(this, this.getApplicationContext(), webview);
 
         //load the chart
@@ -52,8 +52,6 @@ public class ZoomActivity extends AppCompatActivity implements ZoomInterface {
     public void loadChart(String remoteUrl)
     {
         String html = "";
-        webview = (WebView) findViewById(
-                R.id.webview);
         webview.setWebViewClient(new WebViewClient());
         WebSettings webSettings =
                 webview.getSettings();

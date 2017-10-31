@@ -16,18 +16,16 @@
 
 </style>
 <head>
-    <script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
-
+    <script type="text/javascript" src="http://d3js.org/d3.v4.min.js"></script>
 </head>
 <body>
 <script  type="text/javascript">
   var width = window.Android.getWidth();
   var height = window.Android.getHeight();
-  document.getElementById('myField').width = width;
-  document.getElementById('myField').height = height;
-  drawZoomChart(width, height);
+  document.write(width);
+  document.write(height);
+  document.write('<svg width="' + width + '" height=' + height + '"></svg>');
 </script>
-<svg id="myField" width="" height=""></svg>
 <script type="text/javascript" src="js/zoomDraw.js"></script>
 </body>
 </html>

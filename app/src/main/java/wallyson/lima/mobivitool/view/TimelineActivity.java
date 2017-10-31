@@ -51,8 +51,6 @@ public class TimelineActivity extends AppCompatActivity implements TimelineInter
     public void loadChart(String remoteUrl)
     {
         String html = "";
-        webview = (WebView) findViewById(
-                R.id.webview);
         webview.setWebViewClient(new WebViewClient());
         WebSettings webSettings =
                 webview.getSettings();

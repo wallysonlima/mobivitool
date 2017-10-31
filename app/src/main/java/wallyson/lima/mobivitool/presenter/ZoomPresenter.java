@@ -19,6 +19,7 @@ public class ZoomPresenter {
         this.webview = webview;
     }
 
+    /*
     //Get the dataset
     @JavascriptInterface
     public String getDataSet() {
@@ -30,7 +31,7 @@ public class ZoomPresenter {
 
         return sb;
     }
-
+*/
     //Get width webview
     @JavascriptInterface
     public int getWidth() {

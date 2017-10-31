@@ -1,10 +1,9 @@
-function drawZoomChart(width, height) {
-    var svg = d3.select("svg"),
-    margin = {top: 20, right: 20, bottom: 110, left: 40},
-    margin2 = {top: 430, right: 20, bottom: 30, left: 40},
-    width = +svg.attr("width") - margin.left - margin.right,
-    height = +svg.attr("height") - margin.top - margin.bottom,
-    height2 = +svg.attr("height") - margin2.top - margin2.bottom;
+var svg = d3.select("svg"),
+margin = {top: 20, right: 20, bottom: 110, left: 40},
+margin2 = {top: 430, right: 20, bottom: 30, left: 40},
+width = +svg.attr("width") - margin.left - margin.right,
+height = +svg.attr("height") - margin.top - margin.bottom,
+height2 = +svg.attr("height") - margin2.top - margin2.bottom;
 
 var parseDate = d3.timeParse("%b %Y");
 
@@ -122,5 +121,4 @@ function type(d) {
   d.date = parseDate(d.date);
   d.price = +d.price;
   return d;
-}
 }

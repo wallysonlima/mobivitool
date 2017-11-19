@@ -18,8 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.TimelineActivity" />
-        <activity android:name=".view.ZoomActivity"></activity>
+        <activity android:name=".view.ZoomActivity" />
+        <activity android:name=".view.TimelineActivity"></activity>
     </application>
 
 </manifest>

@@ -40,7 +40,7 @@ public class TimelineActivity extends AppCompatActivity implements TimelineInter
         mToggle.syncState();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        webview = (WebView) findViewById(R.id.webview);
+        webview = (WebView) findViewById(R.id.webviewtimeline);
         mPresenter = new TimelinePresenter(this, this.getApplicationContext(), webview);
 
         //load the chart
@@ -55,7 +55,7 @@ public class TimelineActivity extends AppCompatActivity implements TimelineInter
         WebSettings webSettings =
                 webview.getSettings();
 
-        webview.addJavascriptInterface(mPresenter, "Android");
+        webview.addJavascriptInterface(mPresenter, "AndroidTimeline");
         webview.setWebContentsDebuggingEnabled(true);
 
         webSettings.setJavaScriptEnabled(true);

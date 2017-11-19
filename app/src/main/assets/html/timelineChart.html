@@ -7,19 +7,20 @@
 </head>
 <body>
 <p>
-    <h1>Load the html Dam !!!</h1>
 </p>
 <script  type="text/javascript">
   //var dataArray = [20, 40, 50, 90];
   //drawTimelineChart(dataArray, 500, 500);
   //document.write("dafdsafds!");
   //console.info("android");
-  var width = window.Android.getWidth();
-  document.write(width);
+  //var width = window.AndroidTimeline.getWidth();
+  var width = 320;
+  //var height = 800;
+  //document.write(width);
   var dataArray = new Array();
-  dataArray = (window.Android.getDataSet()).split(',');
-  var height = window.Android.getHeight();
-  document.write(height);
+  dataArray = (window.AndroidTimeline.getDataSet()).split(',');
+  var height = window.AndroidTimeline.getHeight();
+  //document.write(height);
   drawTimelineChart(dataArray, width, height);
 
 </script>

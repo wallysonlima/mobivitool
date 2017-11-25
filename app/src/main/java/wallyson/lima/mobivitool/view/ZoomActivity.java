@@ -56,7 +56,7 @@ public class ZoomActivity extends AppCompatActivity implements ZoomInterface {
         WebSettings webSettings =
                 webview.getSettings();
 
-        webview.addJavascriptInterface(mPresenter, "Android");
+        webview.addJavascriptInterface(mPresenter, "AndroidZoom");
         webview.setWebContentsDebuggingEnabled(true);
 
         webSettings.setJavaScriptEnabled(true);

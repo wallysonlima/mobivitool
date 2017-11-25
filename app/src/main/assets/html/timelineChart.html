@@ -1,28 +1,62 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
 <html>
-<head>
-    <title>Document</title>
-    <meta name = "viewport" content = "width=device-width, initial-scale=1.0, user-scalable=no">
-    <script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
-    <script type="text/javascript" src="js/timelineDraw.js"></script>
-</head>
-<body>
-<p>
-</p>
-<script  type="text/javascript">
-  //var dataArray = [20, 40, 50, 90];
-  //drawTimelineChart(dataArray, 500, 500);
-  //document.write("dafdsafds!");
-  //console.info("android");
-  //var width = window.AndroidTimeline.getWidth();
-  var width = 320;
-  //var height = 800;
-  //document.write(width);
-  var dataArray = new Array();
-  dataArray = (window.AndroidTimeline.getDataSet()).split(',');
-  var height = window.AndroidTimeline.getHeight();
-  //document.write(height);
-  drawTimelineChart(dataArray, width, height);
+<style>
+body {
+  font: 10px sans-serif;
+}
 
-</script>
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.bar {
+  fill: orange;
+}
+
+.bar:hover {
+  fill: orangered ;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.d3-tip {
+  line-height: 1;
+  font-weight: bold;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 2px;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 10px;
+  width: 100%;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.8);
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
+
+/* Style northward tooltips differently */
+.d3-tip.n:after {
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
+}
+</style>
+<body>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+<script type="text/javascript" src="js/timelineDraw.js"></script>
 </body>
 </html>

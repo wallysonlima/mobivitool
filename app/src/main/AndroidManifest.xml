@@ -19,7 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.ZoomActivity" />
-        <activity android:name=".view.TimelineActivity"></activity>
+        <activity android:name=".view.TimelineActivity" />
+        <activity android:name=".view.MultiLineActivity"></activity>
     </application>
 
 </manifest>

@@ -45,7 +45,7 @@ public class MultiLineActivity extends AppCompatActivity implements MultiInterfa
         mPresenter = new MultiPresenter(this, this.getApplicationContext(), webview);
 
         //load the chart
-        loadChart("html/timelineChart.html");
+        loadChart("html/multilineChart.html");
     }
 
     // initialize the WebView and the pie chart

@@ -20,7 +20,8 @@
         </activity>
         <activity android:name=".view.ZoomActivity" />
         <activity android:name=".view.TimelineActivity" />
-        <activity android:name=".view.MultiLineActivity"></activity>
+        <activity android:name=".view.MultiLineActivity" />
+        <activity android:name=".view.MapActivity"></activity>
     </application>
 
 </manifest>

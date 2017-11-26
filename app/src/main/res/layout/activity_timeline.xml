@@ -23,7 +23,7 @@
         android:layout_height="match_parent"
         app:menu="@menu/timeline_nav_menu"
         android:layout_gravity="start"
-        app:headerLayout="@layout/navigation_header">
+        app:headerLayout="@layout/header_timeline">
 
     </android.support.design.widget.NavigationView>
 

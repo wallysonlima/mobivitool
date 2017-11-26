@@ -23,7 +23,7 @@
         android:layout_height="match_parent"
         app:menu="@menu/zoom_nav_menu"
         android:layout_gravity="start"
-        app:headerLayout="@layout/navigation_header">
+        app:headerLayout="@layout/header_zoom">
 
     </android.support.design.widget.NavigationView>
 

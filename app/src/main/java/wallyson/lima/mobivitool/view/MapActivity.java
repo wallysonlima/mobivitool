@@ -41,7 +41,7 @@ public class MapActivity extends AppCompatActivity implements MapInterface {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         webview = (WebView) findViewById(R.id.webviewmap);
-        mPresenter = new MultiPresenter(this, this.getApplicationContext(), webview);
+        mPresenter = new MapPresenter(this, this.getApplicationContext(), webview);
 
         //load the chart
         loadChart("html/mapChart.html");

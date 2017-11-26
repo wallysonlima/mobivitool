@@ -1,5 +1,5 @@
 var svg = d3.select("svg"),
-    margin = {top: 20, right: 80, bottom: 30, left: 50},
+    margin = {top: 10, right: 10, bottom: 30, left: 20},
     width = svg.attr("width") - margin.left - margin.right,
     height = svg.attr("height") - margin.top - margin.bottom,
     g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -15,7 +15,7 @@ var line = d3.line()
     .x(function(d) { return x(d.date); })
     .y(function(d) { return y(d.temperature); });
 
-d3.tsv("data.tsv", type, function(error, data) {
+d3.tsv("data/multiline.tsv", type, function(error, data) {
   if (error) throw error;
 
   var cities = data.columns.slice(1).map(function(id) {

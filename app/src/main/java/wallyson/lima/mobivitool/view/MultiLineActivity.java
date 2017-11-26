@@ -56,7 +56,7 @@ public class MultiLineActivity extends AppCompatActivity implements MultiInterfa
         WebSettings webSettings =
                 webview.getSettings();
 
-        webview.addJavascriptInterface(mPresenter, "AndroidTimeline");
+        webview.addJavascriptInterface(mPresenter, "AndroidMultiLine");
         webview.setWebContentsDebuggingEnabled(true);
 
         webSettings.setJavaScriptEnabled(true);

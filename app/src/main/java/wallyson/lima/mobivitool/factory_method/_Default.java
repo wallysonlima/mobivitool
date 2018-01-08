@@ -1,4 +1,4 @@
-package wallyson.lima.mobivitool.dao;
+package wallyson.lima.mobivitool.factory_method;
 
 /**
  * Created by wlima on 1/8/18.

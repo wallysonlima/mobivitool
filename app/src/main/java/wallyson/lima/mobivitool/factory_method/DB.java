@@ -1,4 +1,4 @@
-package wallyson.lima.mobivitool.dao;
+package wallyson.lima.mobivitool.factory_method;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

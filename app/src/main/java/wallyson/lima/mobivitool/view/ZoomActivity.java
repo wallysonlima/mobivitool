@@ -28,6 +28,7 @@ public class ZoomActivity extends AppCompatActivity implements ZoomInterface {
     private ActionBarDrawerToggle mToggle;
     private WebView webview;
     private ZoomPresenter mPresenter;
+    private String prefixo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +45,7 @@ public class ZoomActivity extends AppCompatActivity implements ZoomInterface {
         webview = (WebView) findViewById(R.id.webviewzoom);
         mPresenter = new ZoomPresenter(this, this.getApplicationContext(), webview);
 
+        prefixo = getIntent().getStringExtra("prefixo");
         //load the chart
         loadChart("html/zoomChart.html");
     }
@@ -104,5 +106,9 @@ public class ZoomActivity extends AppCompatActivity implements ZoomInterface {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public String getPrefixo() {
+        return this.prefixo;
     }
 }

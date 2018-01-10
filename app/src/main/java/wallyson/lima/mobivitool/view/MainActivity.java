@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         btZoom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, ZoomActivity.class);
+                Intent intent = new Intent(MainActivity.this, SelectPrefixoActivity.class);
                 startActivity(intent);
             }
         });

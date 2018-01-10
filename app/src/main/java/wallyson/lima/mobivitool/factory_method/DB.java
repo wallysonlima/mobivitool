@@ -2,6 +2,7 @@ package wallyson.lima.mobivitool.factory_method;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 
 /**
  * Created by wlima on 1/8/18.

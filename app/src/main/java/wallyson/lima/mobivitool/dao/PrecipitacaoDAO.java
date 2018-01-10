@@ -5,6 +5,4 @@ package wallyson.lima.mobivitool.dao;
  */
 
 public class PrecipitacaoDAO {
-
-    public v
 }

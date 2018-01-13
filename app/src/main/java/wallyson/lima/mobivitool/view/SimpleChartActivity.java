@@ -1,5 +1,6 @@
 package wallyson.lima.mobivitool.view;
 
+import android.content.Context;
 import android.content.res.AssetManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,7 +29,7 @@ import wallyson.lima.mobivitool.presenter.SimplePresenter;
 public class SimpleChartActivity extends AppCompatActivity implements SimpleInterface {
     private WebView webview;
     private SimplePresenter mPresenter;
-    private String prefixo, ano;
+    private String prefixo, ano, nomeArquivo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +38,7 @@ public class SimpleChartActivity extends AppCompatActivity implements SimpleInte
 
         webview = (WebView) findViewById(R.id.webviewsimple);
         mPresenter = new SimplePresenter(this, this.getApplicationContext(), webview);
-
+        nomeArquivo = "simple.tsv";
         prefixo = getIntent().getStringExtra("prefixo");
         ano = getIntent().getStringExtra("ano");
         //load the chart
@@ -93,57 +95,60 @@ public class SimpleChartActivity extends AppCompatActivity implements SimpleInte
         return writer.toString();
     }
 
-    // Write data in simple.csv
+    // Write data in simple.tsv
     public void writeData() {
         PrecipitacaoDAO preDao = new PrecipitacaoDAO();
         ArrayList<Precipitacao> arrayPre = preDao.getMediaChuvaAno(prefixo, ano);
+        String texto = "letter  frequency\n";
+        FileOutputStream outputStream;
+
+        for (Precipitacao p: arrayPre) {
+
+            switch (p.getMes()) {
+                case "01":
+                    texto += "Jan" + "    " + p.getMedia() + "\n";
+                    break;
+                case "02":
+                    texto += "Feb " + "    " + p.getMedia() + "\n";
+                    break;
+                case "03":
+                    texto += "Mar " + "    " + p.getMedia() + "\n";
+                    break;
+                case "04":
+                    texto += "Apr " + "    " + p.getMedia() + "\n";
+                    break;
+                case "05":
+                    texto += "May " + "    " + p.getMedia() + "\n";
+                    break;
+                case "06":
+                    texto += "Jun " + "    " + p.getMedia() + "\n";
+                    break;
+                case "07":
+                    texto += "Jul " + "    " + p.getMedia() + "\n";
+                    break;
+                case "08":
+                    texto += "Aug " + "    " + p.getMedia() + "\n";
+                    break;
+                case "09":
+                    texto += "Sep " + "    " + p.getMedia() + "\n";
+                    break;
+                case "10":
+                    texto += "Oct " + "    " + p.getMedia() + "\n";
+                    break;
+                case "11":
+                    texto += "Nov " + "    " + p.getMedia() + "\n";
+                    break;
+                case "12":
+                    texto += "Dec " + "    " + p.getMedia() + "\n";
+                    break;
+            }
+        }
 
         try {
-            FileOutputStream fileout=openFileOutput("file:///android_asset/data/simple.tsv", MODE_PRIVATE);
-            OutputStreamWriter outputWriter=new OutputStreamWriter(fileout);
-            outputWriter.write("date    media");
-
-            for (Precipitacao p: arrayPre) {
-                switch (p.getMes()) {
-                    case "01":
-                        outputWriter.write("Jan" + "    " + p.getMedia());
-                        break;
-                    case "02":
-                        outputWriter.write("Feb " + "    " + p.getMedia());
-                        break;
-                    case "03":
-                        outputWriter.write("Mar " + "    " + p.getMedia());
-                        break;
-                    case "04":
-                        outputWriter.write("Apr " + "    " + p.getMedia());
-                        break;
-                    case "05":
-                        outputWriter.write("May " + "    " + p.getMedia());
-                        break;
-                    case "06":
-                        outputWriter.write("Jun " + "    " + p.getMedia());
-                        break;
-                    case "07":
-                        outputWriter.write("Jul " + "    " + p.getMedia());
-                        break;
-                    case "08":
-                        outputWriter.write("Aug " + "    " + p.getMedia());
-                        break;
-                    case "09":
-                        outputWriter.write("Sep " + "    " + p.getMedia());
-                        break;
-                    case "10":
-                        outputWriter.write("Oct " + "    " + p.getMedia());
-                        break;
-                    case "11":
-                        outputWriter.write("Nov " + "    " + p.getMedia());
-                        break;
-                    case "12":
-                        outputWriter.write("Dec " + "    " + p.getMedia());
-                        break;
-                }
-            }
-            outputWriter.close();
+            File file = new File(getApplicationContext().getFilesDir(), nomeArquivo);
+            outputStream = openFileOutput(nomeArquivo, Context.MODE_PRIVATE);
+            outputStream.write(texto.getBytes());
+            outputStream.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

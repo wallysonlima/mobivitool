@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import wallyson.lima.mobivitool.R;
 import wallyson.lima.mobivitool.dao.PostoDAO;
 
-public class SelectPrefixoActivity extends AppCompatActivity {
+public class SelectZoomActivity extends AppCompatActivity {
     private Button btSelecionar;
     private Spinner spinPrefixo;
     private PostoDAO postoDao;
@@ -32,7 +32,7 @@ public class SelectPrefixoActivity extends AppCompatActivity {
         btSelecionar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SelectPrefixoActivity.this, ZoomActivity.class);
+                Intent intent = new Intent(SelectZoomActivity.this, ZoomActivity.class);
                 intent.putExtra("prefixo", spinPrefixo.getSelectedItem().toString());
                 startActivity(intent);
             }

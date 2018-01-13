@@ -22,7 +22,9 @@
         <activity android:name=".view.TimelineActivity" />
         <activity android:name=".view.MultiLineActivity" />
         <activity android:name=".view.MapActivity" />
-        <activity android:name=".view.SelectPrefixoActivity"></activity>
+        <activity android:name=".view.SelectZoomActivity" />
+        <activity android:name=".view.SimpleChartActivity" />
+        <activity android:name=".view.SelectSimpleActivity"></activity>
     </application>
 
 </manifest>

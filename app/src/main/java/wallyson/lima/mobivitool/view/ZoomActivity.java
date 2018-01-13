@@ -6,19 +6,25 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import java.io.BufferedReader;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.util.ArrayList;
 
 import wallyson.lima.mobivitool.R;
+import wallyson.lima.mobivitool.dao.PrecipitacaoDAO;
+import wallyson.lima.mobivitool.model.Precipitacao;
 import wallyson.lima.mobivitool.presenter.TimelinePresenter;
 import wallyson.lima.mobivitool.presenter.ZoomInterface;
 import wallyson.lima.mobivitool.presenter.ZoomPresenter;
@@ -47,6 +53,7 @@ public class ZoomActivity extends AppCompatActivity implements ZoomInterface {
 
         prefixo = getIntent().getStringExtra("prefixo");
         //load the chart
+        writeData();
         loadChart("html/zoomChart.html");
     }
 
@@ -97,6 +104,62 @@ public class ZoomActivity extends AppCompatActivity implements ZoomInterface {
         } finally {
         }
         return writer.toString();
+    }
+
+    // Write data in Zoom.csv
+    public void writeData() {
+        PrecipitacaoDAO preDao = new PrecipitacaoDAO();
+        ArrayList<Precipitacao> arrayPre = preDao.getMediaChuvaMes(prefixo);
+
+        try {
+            FileOutputStream fileout=openFileOutput("file:///android_asset/data/zoom.csv", MODE_PRIVATE);
+            OutputStreamWriter outputWriter=new OutputStreamWriter(fileout);
+            outputWriter.write("date,price");
+
+            for (Precipitacao p: arrayPre) {
+                switch (p.getMes()) {
+                    case "01":
+                        outputWriter.write("Jan " + p.getAno() + "," + p.getMedia());
+                        break;
+                    case "02":
+                        outputWriter.write("Feb " + p.getAno() + "," + p.getMedia());
+                        break;
+                    case "03":
+                        outputWriter.write("Mar " + p.getAno() + "," + p.getMedia());
+                        break;
+                    case "04":
+                        outputWriter.write("Apr " + p.getAno() + "," + p.getMedia());
+                        break;
+                    case "05":
+                        outputWriter.write("May " + p.getAno() + "," + p.getMedia());
+                        break;
+                    case "06":
+                        outputWriter.write("Jun " + p.getAno() + "," + p.getMedia());
+                        break;
+                    case "07":
+                        outputWriter.write("Jul " + p.getAno() + "," + p.getMedia());
+                        break;
+                    case "08":
+                        outputWriter.write("Aug " + p.getAno() + "," + p.getMedia());
+                        break;
+                    case "09":
+                        outputWriter.write("Sep " + p.getAno() + "," + p.getMedia());
+                        break;
+                    case "10":
+                        outputWriter.write("Oct " + p.getAno() + "," + p.getMedia());
+                        break;
+                    case "11":
+                        outputWriter.write("Nov " + p.getAno() + "," + p.getMedia());
+                        break;
+                    case "12":
+                        outputWriter.write("Dec " + p.getAno() + "," + p.getMedia());
+                        break;
+                }
+            }
+            outputWriter.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

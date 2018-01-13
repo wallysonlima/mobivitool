@@ -55,6 +55,7 @@ public class ZoomPresenter {
         return webview.getHeight();
     }
 
+    /*
     @JavascriptInterface
     public JSONArray getMediaChuvaMes() {
         ArrayList<Precipitacao> arrayPre = preDao.getMediaChuvaMes(mView.getPrefixo());
@@ -75,5 +76,5 @@ public class ZoomPresenter {
         }
 
         return arr;
-    }
+    }*/
 }

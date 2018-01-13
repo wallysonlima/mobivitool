@@ -37,8 +37,6 @@ public class SelectPrefixoActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
     }
 
     public void addPrefixoSpinner() {

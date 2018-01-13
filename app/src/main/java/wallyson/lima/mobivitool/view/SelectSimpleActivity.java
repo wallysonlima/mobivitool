@@ -36,6 +36,7 @@ public class SelectSimpleActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(SelectSimpleActivity.this, SimpleChartActivity.class);
                 intent.putExtra("prefixo", spinPrefixo.getSelectedItem().toString());
+                intent.putExtra("ano", spinAno.getSelectedItem().toString());
                 startActivity(intent);
             }
         });

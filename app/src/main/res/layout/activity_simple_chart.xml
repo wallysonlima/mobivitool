@@ -6,6 +6,15 @@
     android:layout_height="match_parent"
     tools:context="wallyson.lima.mobivitool.view.SimpleChartActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
+        <WebView
+            android:id="@+id/webviewsimple"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

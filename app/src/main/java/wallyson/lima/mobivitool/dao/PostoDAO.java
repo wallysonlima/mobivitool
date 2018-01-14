@@ -35,19 +35,23 @@ public class PostoDAO {
         return pre;
     }
 
-    public String[] getAno(String prefixo) {
+    public ArrayList<String> getAno(String prefixo) {
         DB con = new DB();
-        String sql = "SELECT ano_ini, ano_fim FROM `posto` where prefixo=" + prefixo + ";";
+        String sql = "SELECT ano_ini, ano_fim FROM `posto` where prefixo='" + prefixo + "';";
 
-        String[] ano = new String[2];
+        ArrayList<String> ano = new ArrayList<>();
         ResultSet rs = null;
 
         try {
             rs = con.select(sql);
 
-            rs.next();
-            ano[0] = rs.getString("ano_ini");
-            ano[1] = rs.getString("ano_fim");
+            if ( rs != null ) {
+                while( rs.next() ) {
+                    ano.add(rs.getString("ano_ini"));
+                    ano.add(rs.getString("ano_fim"));
+                }
+            }
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {

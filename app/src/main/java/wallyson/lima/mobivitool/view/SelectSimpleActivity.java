@@ -26,7 +26,7 @@ public class SelectSimpleActivity extends AppCompatActivity {
 
         spinPrefixo = (Spinner) findViewById(R.id.spinPrefixoSimple);
         spinAno = (Spinner) findViewById(R.id.spinAnoSimple);
-        btSelecionar = (Button) findViewById(R.id.btSelecionar);
+        btSelecionar = (Button) findViewById(R.id.btSelecionarSimple);
         postoDao = new PostoDAO();
 
         addPrefixoSpinner();
@@ -44,7 +44,7 @@ public class SelectSimpleActivity extends AppCompatActivity {
         spinPrefixo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                addAnoSpinner(spinPrefixo.getSelectedItem().toString());
+               addAnoSpinner(spinPrefixo.getSelectedItem().toString());
             }
 
             @Override
@@ -63,14 +63,14 @@ public class SelectSimpleActivity extends AppCompatActivity {
     }
 
     public void addAnoSpinner(String prefixo) {
-        String[] ano = postoDao.getAno(prefixo);
-        int ano_ini = Integer.parseInt(ano[0]);
-        int ano_fim = Integer.parseInt(ano[1]);
+        ArrayList<String> ano = postoDao.getAno(prefixo);
+        int ano_ini = Integer.parseInt(ano.get(0));
+        int ano_fim = Integer.parseInt(ano.get(1));
         int duracao = ano_fim - ano_ini;
-        String[] anos = new String[duracao];
+        ArrayList<String> anos = new ArrayList<>();
 
         for(int i = 0; i < duracao; i++ ) {
-            anos[i] = String.valueOf(ano_ini + i);
+            anos.add(String.valueOf(ano_ini + i));
         }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, anos);

@@ -86,11 +86,10 @@
 
         <ImageButton
             android:id="@+id/btSimple"
-            android:layout_width="10dp"
+            android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginLeft="27dp"
             android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:layout_weight="0.16"
             android:background="@mipmap/ic_simplechart"
             android:elevation="18dp"
             app:srcCompat="@mipmap/ic_simplechart" />

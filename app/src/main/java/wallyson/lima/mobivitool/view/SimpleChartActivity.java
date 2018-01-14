@@ -106,40 +106,40 @@ public class SimpleChartActivity extends AppCompatActivity implements SimpleInte
 
             switch (p.getMes()) {
                 case "01":
-                    texto += "Jan" + "    " + p.getMedia() + "\n";
+                    texto += "Jan" + "  " + p.getMedia() + "\n";
                     break;
                 case "02":
-                    texto += "Feb " + "    " + p.getMedia() + "\n";
+                    texto += "Feb" + "  " + p.getMedia() + "\n";
                     break;
                 case "03":
-                    texto += "Mar " + "    " + p.getMedia() + "\n";
+                    texto += "Mar" + "  " + p.getMedia() + "\n";
                     break;
                 case "04":
-                    texto += "Apr " + "    " + p.getMedia() + "\n";
+                    texto += "Apr" + "  " + p.getMedia() + "\n";
                     break;
                 case "05":
-                    texto += "May " + "    " + p.getMedia() + "\n";
+                    texto += "May" + "  " + p.getMedia() + "\n";
                     break;
                 case "06":
-                    texto += "Jun " + "    " + p.getMedia() + "\n";
+                    texto += "Jun" + "  " + p.getMedia() + "\n";
                     break;
                 case "07":
-                    texto += "Jul " + "    " + p.getMedia() + "\n";
+                    texto += "Jul" + "  " + p.getMedia() + "\n";
                     break;
                 case "08":
-                    texto += "Aug " + "    " + p.getMedia() + "\n";
+                    texto += "Aug" + "  " + p.getMedia() + "\n";
                     break;
                 case "09":
-                    texto += "Sep " + "    " + p.getMedia() + "\n";
+                    texto += "Sep" + "  " + p.getMedia() + "\n";
                     break;
                 case "10":
-                    texto += "Oct " + "    " + p.getMedia() + "\n";
+                    texto += "Oct" + "  " + p.getMedia() + "\n";
                     break;
                 case "11":
-                    texto += "Nov " + "    " + p.getMedia() + "\n";
+                    texto += "Nov" + "  " + p.getMedia() + "\n";
                     break;
                 case "12":
-                    texto += "Dec " + "    " + p.getMedia() + "\n";
+                    texto += "Dec" + "  " + p.getMedia() + "\n";
                     break;
             }
         }

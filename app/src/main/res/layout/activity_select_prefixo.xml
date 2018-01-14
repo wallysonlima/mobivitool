@@ -4,18 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="wallyson.lima.mobivitool.view.SelectZoomActivity">
+    tools:context="wallyson.lima.mobivitool.view.SelectZoomActivity"
+    tools:layout_editor_absoluteY="81dp"
+    tools:layout_editor_absoluteX="0dp">
 
     <LinearLayout
         android:layout_width="368dp"
         android:layout_height="495dp"
         android:orientation="vertical"
         tools:layout_editor_absoluteY="8dp"
-        tools:layout_editor_absoluteX="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        tools:layout_editor_absoluteX="8dp">
 
         <Spinner
             android:id="@+id/spinPrefixo"

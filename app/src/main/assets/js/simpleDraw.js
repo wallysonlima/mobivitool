@@ -1,7 +1,7 @@
 
 var margin = {top: 40, right: 20, bottom: 30, left: 40},
-    width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+    width = 620 - margin.left - margin.right,
+    height = 280 - margin.top - margin.bottom;
 
 //var formatPercent = d3.format(".0%");
 
@@ -35,7 +35,7 @@ var svg = d3.select("body").append("svg")
 
 svg.call(tip);
 
-d3.tsv("file:///data/data/wallyson.lima.mobivitool/files/simple.tsv", type, function(error, data) {
+d3.csv("file:///data/data/wallyson.lima.mobivitool/files/simple.csv", type, function(error, data) {
   x.domain(data.map(function(d) { return d.letter; }));
   y.domain([0, d3.max(data, function(d) { return d.frequency; })]);
 

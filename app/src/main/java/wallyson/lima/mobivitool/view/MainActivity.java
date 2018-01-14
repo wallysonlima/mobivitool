@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         btTimeline.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, TimelineActivity.class);
+                Intent intent = new Intent(MainActivity.this, SelectTimelineActivity.class);
                 startActivity(intent);
             }
         });

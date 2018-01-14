@@ -61,4 +61,30 @@ public class PostoDAO {
         return ano;
     }
 
+    public ArrayList<String> getNome(String prefixo1, String prefixo2, String prefixo3) {
+        DB con = new DB();
+        String sql = "SELECT nome FROM `posto` where prefixo IN('" + prefixo1 + "', '" +
+                prefixo2 + "', '" + prefixo3 + "');";
+
+        ArrayList<String> nome = new ArrayList<>();
+        ResultSet rs = null;
+
+        try {
+            rs = con.select(sql);
+
+            if ( rs != null ) {
+                while( rs.next() ) {
+                    nome.add(rs.getString("nome"));
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            con.desconecta();
+        }
+
+        return nome;
+    }
+
 }

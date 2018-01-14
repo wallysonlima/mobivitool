@@ -1,78 +1,68 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <link href="css/nv.d3.css" rel="stylesheet" type="text/css">
-    <script src="https://d3js.org/d3.v3.min.js"></script>
-    <script src="js/nv.d3.js"></script>
-    <script src="js/stream_layers.js"></script>
+<html meta-charset="utf-8">
 
-    <style>
-        text {
-            font: 12px sans-serif;
-        }
-        svg {
-            display: block;
-        }
-        html, body, #test1, svg {
-            margin: 0px;
-            padding: 0px;
-            height: 500;
-            width: 365;
-        }
 
-        html, body, #test1, svg {
-            margin-left: -8px;
-            margin-right: -5px;
-            margin-bottom: 0px;
-        }
-    </style>
-</head>
-<body>
+<script src = "http://d3js.org/d3.v3.js"></script>
+<script src = "http://cdnjs.cloudflare.com/ajax/libs/nvd3/1.1.15-beta/nv.d3.js"></script>
+<link rel = "stylesheet" href = "http://cdnjs.cloudflare.com/ajax/libs/nvd3/1.1.15-beta/nv.d3.css">
 
-<div id="test1">
+<div id = "chart1">
     <svg></svg>
 </div>
 
 <script>
-    //var test_data = stream_layers(3,128,.1).map(function(data, i) {
-    var test_data = stream_layers(3,128,.1).map(function(data, i) {
-        return {
-            key: (i == 1) ? 'Non Stream' + i: 'Stream' + i,
-            nonStackable: (i == 1),
-            values: data
-        };
-    });
-    nv.addGraph({
-        generate: function() {
-            var width = nv.utils.windowSize().width,
-                height = nv.utils.windowSize().height;
-            var chart = nv.models.multiBarChart()
-                .width(width)
-                .height(height)
-                .stacked(true)
-                ;
-            chart.dispatch.on('renderEnd', function(){
-                console.log('Render Complete');
-            });
-            var svg = d3.select('#test1 svg').datum(test_data);
-            console.log('calling chart');
-            svg.transition().duration(0).call(chart);
-            return chart;
-        },
-        callback: function(graph) {
-            nv.utils.windowResize(function() {
-                var width = nv.utils.windowSize().width;
-                var height = nv.utils.windowSize().height;
-                graph.width(width).height(height);
-                d3.select('#test1 svg')
-                    .attr('width', width)
-                    .attr('height', height)
-                    .transition().duration(0)
-                    .call(graph);
-            });
-        }
-    });
+  //$(document).ready(function(){
+    d3.csv("file:///data/data/wallyson.lima.mobivitool/files/timeline.csv",function(err,data){
+
+      //get each key of the data that is not date
+      //these will be our key in the key/value pair
+      //the values x and y will be month and the value
+      var dataToPlot = Object.keys(data[0]).filter(function(k){return k!="date"})
+        .map(function(k){
+          return {"key":k,"values":data.map(function(d){
+           return {
+             //let's make this a real date
+             "x":d3.time.format("%Y-%b-%d").parse("2014-" + d.date + "-01"),
+             "y":+d[k]
+           }
+          })}
+        })
+
+      nv.addGraph(function() {
+        var width = 600, height = 300;
+        var chart = nv.models.multiBarChart().x(function(d) {
+            return d.x;
+        }).y(function(d) {
+            return d.y;
+        }).color(['#aec7e8', '#7b94b5', '#486192']).stacked(true)
+        .width(width).height(height)
+          .transitionDuration(350)
+          .reduceXTicks(true)   //If 'false', every single x-axis tick label will be rendered.
+          .rotateLabels(0)      //Angle to rotate x-axis labels.
+          .showControls(true)   //Allow user to switch between 'Grouped' and 'Stacked' mode.
+          .groupSpacing(0.1)    //Distance between each group of bars.
+        ;
+
+        chart.xAxis
+            .tickFormat(d3.time.format('%b'));
+
+        chart.yAxis
+            .tickFormat(d3.format(',.1f'));
+
+        d3.select('#chart1 svg')
+            .datum(dataToPlot)
+            .call(chart)
+            .style({ 'width': width, 'height': height });
+
+        nv.utils.windowResize(chart.update);
+
+        return chart;
+      });
+
+    })
+  //})
+
+
 </script>
-</body>
+
 </html>

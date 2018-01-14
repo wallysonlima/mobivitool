@@ -27,7 +27,8 @@
         <activity android:name=".view.SelectZoomActivity" />
         <activity android:name=".view.SimpleChartActivity" />
         <activity android:name=".view.SelectSimpleActivity" />
-        <activity android:name=".view.SelectTimelineActivity"></activity>
+        <activity android:name=".view.SelectTimelineActivity" />
+        <activity android:name=".view.SelectMultiLineActivity"></activity>
     </application>
 
 </manifest>

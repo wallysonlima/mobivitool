@@ -8,4 +8,5 @@
     <string name="open">Open</string>
     <string name="close">Close</string>
     <string name="header_nav">Settings</string>
+    <string name="title_activity_select_multi_line">SelectMultiLineActivity</string>
 </resources>

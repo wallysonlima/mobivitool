@@ -32,8 +32,6 @@ import wallyson.lima.mobivitool.presenter.TimelinePresenter;
 import wallyson.lima.mobivitool.presenter.TimelineInterface;
 
 public class TimelineActivity extends AppCompatActivity implements TimelineInterface {
-    private DrawerLayout mDrawerLayout;
-    private ActionBarDrawerToggle mToggle;
     private WebView webview;
     private TimelinePresenter mPresenter;
     private String nomeArquivo, prefixo1, prefixo2, prefixo3, ano1, ano2, ano3;

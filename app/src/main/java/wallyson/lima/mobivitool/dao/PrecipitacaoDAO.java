@@ -73,4 +73,30 @@ public class PrecipitacaoDAO {
 
         return pre;
     }
+
+    public int getMes(String prefixo, String ano) {
+        DB con = new DB();
+        String sql = "SELECT COUNT(mes) as qtde FROM `precipitacao` WHERE prefixo='" + prefixo + "'" +
+                " and ano='" + ano + "';";
+
+        int mes = 0;
+        ResultSet rs = null;
+
+        try {
+            rs = con.select(sql);
+
+            if ( rs != null ) {
+                while( rs.next() ) {
+                    mes = rs.getInt("qtde");
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            con.desconecta();
+        }
+
+        return mes;
+    }
 }

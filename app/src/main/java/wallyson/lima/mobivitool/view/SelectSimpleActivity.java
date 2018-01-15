@@ -77,4 +77,6 @@ public class SelectSimpleActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinAno.setAdapter(adapter);
     }
+
+
 }

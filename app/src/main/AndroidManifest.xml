@@ -28,7 +28,8 @@
         <activity android:name=".view.SimpleChartActivity" />
         <activity android:name=".view.SelectSimpleActivity" />
         <activity android:name=".view.SelectTimelineActivity" />
-        <activity android:name=".view.SelectMultiLineActivity"></activity>
+        <activity android:name=".view.SelectMultiLineActivity" />
+        <activity android:name=".view.SelectMapActivity"></activity>
     </application>
 
 </manifest>

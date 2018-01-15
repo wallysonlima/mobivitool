@@ -1,0 +1,48 @@
+/*Borough-zoom D3 Visualization*/
+body {
+  font: 12px sans-serif;
+  color: white;
+}
+
+.district-names {
+        fill: grey;
+        text-anchor: middle;
+    }
+.background {
+    fill: none;
+    pointer-events: all;
+}
+
+#neighborhood {
+    fill: #00BCD4;
+}
+
+#neighborhood .active {
+    fill: #B2EBF2;
+}
+
+#borders {
+    fill: none;
+    stroke: #fff;
+    stroke-width: 1.5px;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+    pointer-events: none;
+}
+
+path:hover, path.highlighted {
+  fill: #B2EBF2;
+}
+
+div.tooltip {
+    position: absolute;
+    text-align: center;
+    width: auto;
+    height: auto;
+    padding: 2px;
+    font: 12px sans-serif;
+    background: #006064;
+    border: 0px;
+    border-radius: 8px;
+    pointer-events: none;
+}

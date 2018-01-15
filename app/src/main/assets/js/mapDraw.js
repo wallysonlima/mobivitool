@@ -1,72 +1,143 @@
-var svg = d3.select("svg"),
-    width = +svg.attr("width"),
-    height = +svg.attr("height");
+// Define global variables
+var width_4 = 400,
+height_4 = 300,
+centered;
 
-var unemployment = d3.map();
+function createNYCMap(){
 
-var path = d3.geoPath();
+            // Define the projection boundaries
+            var projection = d3.geoMercator()
+            .center([-48.63413553850004,-22.572100678728635])
+            .scale(2434.989128794103)
+            .translate([width_4/2,height_4/2]);
 
-var x = d3.scaleLinear()
-    .domain([1, 10])
-    .rangeRound([600, 860]);
+            // Define the path
+            var path = d3.geoPath()
+            .projection(projection);
 
-var color = d3.scaleThreshold()
-    .domain(d3.range(2, 10))
-    .range(d3.schemeBlues[9]);
+            // Define the div for the tooltip
+            var div = d3.select("#map_4")
+            .append("div")
+            .attr("class", "tooltip")
+            .style("opacity", 0);
 
-var g = svg.append("g")
-    .attr("class", "key")
-    .attr("transform", "translate(0,40)");
+            // Define the svg for the map
+            var svg = d3.select("#map_4")
+            .append("svg")
+            .attr("width", width_4)
+            .attr("height", height_4);
 
-g.selectAll("rect")
-  .data(color.range().map(function(d) {
-      d = color.invertExtent(d);
-      if (d[0] == null) d[0] = x.domain()[0];
-      if (d[1] == null) d[1] = x.domain()[1];
-      return d;
-    }))
-  .enter().append("rect")
-    .attr("height", 8)
-    .attr("x", function(d) { return x(d[0]); })
-    .attr("width", function(d) { return x(d[1]) - x(d[0]); })
-    .attr("fill", function(d) { return color(d[0]); });
+            // Define the g for each neighborhood
+            var g = svg.append("g");
 
-g.append("text")
-    .attr("class", "caption")
-    .attr("x", x.range()[0])
-    .attr("y", -6)
-    .attr("fill", "#000")
-    .attr("text-anchor", "start")
-    .attr("font-weight", "bold")
-    .text("Unemployment rate");
+            var tooltip = d3.select("#map_4").append("div").attr("class","tooltip");
 
-g.call(d3.axisBottom(x)
-    .tickSize(13)
-    .tickFormat(function(x, i) { return i ? x : x + "%"; })
-    .tickValues(color.domain()))
-  .select(".domain")
-    .remove();
+            d3.json("sp.topojson", function(error, geodata) {
+                if (error) return console.log(error);
 
-d3.queue()
-    .defer(d3.json, "https://d3js.org/us-10m.v1.json")
-    .defer(d3.tsv, "data/map.tsv", function(d) { unemployment.set(d.id, +d.rate); })
-    .await(ready);
+                //Create a path for each map feature in the data
+                g.append("g")
+                .attr("id", "neighborhood")
+                .selectAll("path")
+                .data(topojson.feature(geodata, geodata.objects.VWM_AGENCIA_CETESB_50_CETESB_20160201_POLPolygon).features)
+                .enter()
+                .append("path")
+                .attr("d", path)
+                .on("mouseover",showTooltip)
+                .on("mousemove",moveTooltip)
+                .on("mouseout",hideTooltip)
+                .on("click", clicked);
+            });
 
-function ready(error, us) {
-  if (error) throw error;
+            function clicked(d){
+                var x, y, k;
+            // IF zoomed-in state is on
+            if (d && centered !== d) {
+                // Change the center of the projection
+                var centroid = path.centroid(d);
+                x = centroid[0];
+                y = centroid[1];
+                k = 4;
+                centered = d;
+                // Show tooltip
+                div.transition()
+                .duration(200)
+                .style("opacity", .9);
 
-  svg.append("g")
-      .attr("class", "counties")
-    .selectAll("path")
-    .data(topojson.feature(us, us.objects.counties).features)
-    .enter().append("path")
-      .attr("fill", function(d) { return color(d.rate = unemployment.get(d.id)); })
-      .attr("d", path)
-    .append("title")
-      .text(function(d) { return d.rate + "%"; });
+                hideTooltip();
 
-  svg.append("path")
-      .datum(topojson.mesh(us, us.objects.states, function(a, b) { return a !== b; }))
-      .attr("class", "states")
-      .attr("d", path);
-}
+                // Write staff on tooltip
+                div.html("Cidade:" + "<strong>" + d.properties.Agencia_CE.toLowerCase().toUpperCase().substring(21) + "</strong>" + "<br/>" +
+                   "Total Number of Complaints:" + '<strong id="frequency"></strong>' + "<br/>" +
+                   "Most Common Complaint:" + '<strong id="districtName"></strong>'
+                   )
+                // Place the tooltip
+                div.style("left", (d3.mouse(this)[0]) + "px")
+                .style("top", (d3.mouse(this)[1]) + "px");
+
+                // Load CSV for filling the missing info on tooltip
+                d3.csv("total_neight.csv", function(data) {
+                    var districtName = d.properties.PO_NAME.toUpperCase();
+                    var matchFound = false;
+                    for(var i=0;i<data.length;i++) {
+                        if (data[i]["City"]==districtName) {
+                            $("#districtName").html(data[i]['top_complaint']);
+                            $("#frequency").html(data[i]['count']);
+                            matchFound = true;
+                        }
+                    }
+                    if (!matchFound) {
+                        $("#districtName").html("No data available");
+                        $("#frequency").html("No data available");
+                    }
+                });
+            // IF zoomed-out state is on
+        } else {
+            x = width_4 / 2;
+            y = height_4 / 2;
+            k = 1;
+            centered = null;
+            $(".tooltip").css('opacity', 0);
+            showTooltip(d);
+        }
+            //
+            g.selectAll("path")
+            .classed("active", centered && function(d) {
+                return d === centered;
+            })
+
+            g.transition()
+            .duration(750)
+            .attr("transform", "translate(" + width_4 / 2 + "," + height_4 / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
+            .style("stroke-width", 1.5 / k + "px");
+        }
+
+        //Position of the tooltip relative to the cursor
+        var tooltipOffset = {x: 5, y: -25};
+
+        //Create a tooltip, hidden at the start
+        function showTooltip(d) {
+          moveTooltip();
+
+          tooltip.style("opacity", 100);
+          tooltip.style("display","block")
+              .text(d.properties.Agencia_CE.substring(21));
+        }
+
+        //Move the tooltip to track the mouse
+        function moveTooltip() {
+          tooltip.style("top",(d3.event.pageY+tooltipOffset.y)+"px")
+              .style("left",(d3.event.pageX+tooltipOffset.x)+"px");
+        }
+
+        //Create a tooltip, hidden at the start
+        function hideTooltip() {
+          tooltip.style("display","none");
+        }
+    }
+
+
+
+
+        // Load NYC map function
+        createNYCMap();

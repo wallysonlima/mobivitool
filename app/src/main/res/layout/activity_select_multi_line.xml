@@ -21,27 +21,7 @@
             android:layout_height="60dp" />
 
         <Spinner
-            android:id="@+id/spinPrefixo2Multi"
-            android:layout_width="match_parent"
-            android:layout_height="60dp" />
-
-        <Spinner
-            android:id="@+id/spinPrefixo3Multi"
-            android:layout_width="match_parent"
-            android:layout_height="60dp" />
-
-        <Spinner
             android:id="@+id/spinAno1Multi"
-            android:layout_width="match_parent"
-            android:layout_height="60dp" />
-
-        <Spinner
-            android:id="@+id/spinAno2Multi"
-            android:layout_width="match_parent"
-            android:layout_height="60dp" />
-
-        <Spinner
-            android:id="@+id/spinAno3Multi"
             android:layout_width="match_parent"
             android:layout_height="60dp" />
 

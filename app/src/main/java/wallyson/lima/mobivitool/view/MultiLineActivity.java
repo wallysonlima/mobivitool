@@ -35,23 +35,23 @@ import wallyson.lima.mobivitool.presenter.TimelinePresenter;
 public class MultiLineActivity extends AppCompatActivity implements MultiInterface {
     private WebView webview;
     private MultiPresenter mPresenter;
-    private String nomeArquivo, prefixo1, prefixo2, prefixo3, ano1, ano2, ano3;
+    private String nomeArquivo, prefixo1, ano1;//, prefixo2, prefixo3, ano1, ano2, ano3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_multi_line);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
         webview = (WebView) findViewById(R.id.webviewmulti);
         mPresenter = new MultiPresenter(this, this.getApplicationContext(), webview);
         nomeArquivo = "multiline.csv";
         prefixo1 = getIntent().getStringExtra("prefixo1");
-        prefixo2 = getIntent().getStringExtra("prefixo2");
-        prefixo3 = getIntent().getStringExtra("prefixo3");
+        //prefixo2 = getIntent().getStringExtra("prefixo2");
+        //prefixo3 = getIntent().getStringExtra("prefixo3");
         ano1 = getIntent().getStringExtra("ano1");
-        ano2 = getIntent().getStringExtra("ano2");
-        ano3 = getIntent().getStringExtra("ano3");
+        //ano2 = getIntent().getStringExtra("ano2");
+        //ano3 = getIntent().getStringExtra("ano3");
         writeData();
         //load the chart
         loadChart("html/multilineChart.html");
@@ -111,14 +111,14 @@ public class MultiLineActivity extends AppCompatActivity implements MultiInterfa
         PrecipitacaoDAO preDao = new PrecipitacaoDAO();
         PostoDAO postoDao = new PostoDAO();
         ArrayList<Precipitacao> arrayPre1 = preDao.getMediaChuvaAno(prefixo1, ano1);
-        ArrayList<Precipitacao> arrayPre2 = preDao.getMediaChuvaAno(prefixo2, ano2);
-        ArrayList<Precipitacao> arrayPre3 = preDao.getMediaChuvaAno(prefixo3, ano3);
-        ArrayList<String> arrayNome = postoDao.getNome(prefixo1, prefixo2, prefixo3);
+        //ArrayList<Precipitacao> arrayPre2 = preDao.getMediaChuvaAno(prefixo2, ano2);
+        //ArrayList<Precipitacao> arrayPre3 = preDao.getMediaChuvaAno(prefixo3, ano3);
+        //ArrayList<String> arrayNome = postoDao.getNome(prefixo1, prefixo2, prefixo3);
         String texto = "";
-        int tam1 = arrayPre1.size();
-        int tam2 = arrayPre2.size();
-        int tam3 = arrayPre3.size();
-        int tamanho = 0;
+        //int tam1 = arrayPre1.size();
+        //int tam2 = arrayPre2.size();
+        //int tam3 = arrayPre3.size();
+        /*int tamanho = 0;
 
         if ( tam1 < tam2 )
             if ( tam1 < tam3 )
@@ -136,59 +136,60 @@ public class MultiLineActivity extends AppCompatActivity implements MultiInterfa
             Toast.makeText(getApplicationContext(), "Erro ! Selecione Arquivos Diferentes !", Toast.LENGTH_SHORT).show();
             finish();
         }
-
+        */
         FileOutputStream outputStream;
 
-        for (int i = 0; i < tamanho; i++ ) {
+        texto = "date,average\n";
+        for (int i = 0; i < arrayPre1.size(); i++ ) {
 
             switch (arrayPre1.get(i).getMes() ) {
                 case "01":
-                    texto += "Jan," + arrayPre1.get(i).getMedia() + "," + arrayPre2.get(i).getMedia() + "," +
-                            arrayPre3.get(i).getMedia()+ "\n";
+                    texto += "Jan," + arrayPre1.get(i).getMedia() + "\n";// + "," + arrayPre2.get(i).getMedia() + "," +
+                            //arrayPre3.get(i).getMedia()+ "\n";
                     break;
                 case "02":
-                    texto += "Feb," + arrayPre1.get(i).getMedia() + "," + arrayPre2.get(i).getMedia() + "," +
-                            arrayPre3.get(i).getMedia()+ "\n";
+                    texto += "Feb," + arrayPre1.get(i).getMedia() + "\n"; // + "," + arrayPre2.get(i).getMedia() + "," +
+                            //arrayPre3.get(i).getMedia()+ "\n";
                     break;
                 case "03":
-                    texto += "Mar," + arrayPre1.get(i).getMedia() + "," + arrayPre2.get(i).getMedia() + "," +
-                            arrayPre3.get(i).getMedia()+ "\n";
+                    texto += "Mar," + arrayPre1.get(i).getMedia() + "\n";// + "," + arrayPre2.get(i).getMedia() + "," +
+                            //arrayPre3.get(i).getMedia()+ "\n";
                     break;
                 case "04":
-                    texto += "Apr," + arrayPre1.get(i).getMedia() + "," + arrayPre2.get(i).getMedia() + "," +
-                            arrayPre3.get(i).getMedia()+ "\n";
+                    texto += "Apr," + arrayPre1.get(i).getMedia() + "\n";// + "," + arrayPre2.get(i).getMedia() + "," +
+                            //arrayPre3.get(i).getMedia()+ "\n";
                     break;
                 case "05":
-                    texto += "May," + arrayPre1.get(i).getMedia() + "," + arrayPre2.get(i).getMedia() + "," +
-                            arrayPre3.get(i).getMedia()+ "\n";
+                    texto += "May," + arrayPre1.get(i).getMedia() + "\n";// + "," + arrayPre2.get(i).getMedia() + "," +
+                            //arrayPre3.get(i).getMedia()+ "\n";
                     break;
                 case "06":
-                    texto += "Jun," + arrayPre1.get(i).getMedia() + "," + arrayPre2.get(i).getMedia() + "," +
-                            arrayPre3.get(i).getMedia()+ "\n";
+                    texto += "Jun," + arrayPre1.get(i).getMedia() + "\n";// + "," + arrayPre2.get(i).getMedia() + "," +
+                            //arrayPre3.get(i).getMedia()+ "\n";
                     break;
                 case "07":
-                    texto += "Jul," + arrayPre1.get(i).getMedia() + "," + arrayPre2.get(i).getMedia() + "," +
-                            arrayPre3.get(i).getMedia()+ "\n";
+                    texto += "Jul," + arrayPre1.get(i).getMedia() + "\n";// + "," + arrayPre2.get(i).getMedia() + "," +
+                            //arrayPre3.get(i).getMedia()+ "\n";
                     break;
                 case "08":
-                    texto += "Aug," + arrayPre1.get(i).getMedia() + "," + arrayPre2.get(i).getMedia() + "," +
-                            arrayPre3.get(i).getMedia()+ "\n";
+                    texto += "Aug," + arrayPre1.get(i).getMedia() + "\n";// + "," + arrayPre2.get(i).getMedia() + "," +
+                            //arrayPre3.get(i).getMedia()+ "\n";
                     break;
                 case "09":
-                    texto += "Sep," + arrayPre1.get(i).getMedia() + "," + arrayPre2.get(i).getMedia() + "," +
-                            arrayPre3.get(i).getMedia()+ "\n";
+                    texto += "Sep," + arrayPre1.get(i).getMedia() + "\n";// + "," + arrayPre2.get(i).getMedia() + "," +
+                            //arrayPre3.get(i).getMedia()+ "\n";
                     break;
                 case "10":
-                    texto += "Oct," + arrayPre1.get(i).getMedia() + "," + arrayPre2.get(i).getMedia() + "," +
-                            arrayPre3.get(i).getMedia()+ "\n";
+                    texto += "Oct," + arrayPre1.get(i).getMedia() + "\n";// + "," + arrayPre2.get(i).getMedia() + "," +
+                            //arrayPre3.get(i).getMedia()+ "\n";
                     break;
                 case "11":
-                    texto += "Nov," + arrayPre1.get(i).getMedia() + "," + arrayPre2.get(i).getMedia() + "," +
-                            arrayPre3.get(i).getMedia()+ "\n";
+                    texto += "Nov," + arrayPre1.get(i).getMedia() + "\n";// + "," + arrayPre2.get(i).getMedia() + "," +
+                            //arrayPre3.get(i).getMedia()+ "\n";
                     break;
                 case "12":
-                    texto += "Dec," + arrayPre1.get(i).getMedia() + "," + arrayPre2.get(i).getMedia() + "," +
-                            arrayPre3.get(i).getMedia()+ "\n";
+                    texto += "Dec," + arrayPre1.get(i).getMedia() + "\n";// + "," + arrayPre2.get(i).getMedia() + "," +
+                            //arrayPre3.get(i).getMedia()+ "\n";
                     break;
             }
         }

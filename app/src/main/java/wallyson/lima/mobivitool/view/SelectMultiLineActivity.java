@@ -16,7 +16,7 @@ import wallyson.lima.mobivitool.dao.PostoDAO;
 
 public class SelectMultiLineActivity extends AppCompatActivity {
     private Button btSelecionar;
-    private Spinner spinPrefixo1, spinPrefixo2, spinPrefixo3, spinAno1, spinAno2, spinAno3;
+    private Spinner spinPrefixo1, spinAno1; // spinPrefixo2, spinPrefixo3, spinAno1, spinAno2, spinAno3;
     private PostoDAO postoDao;
 
     @Override
@@ -25,11 +25,11 @@ public class SelectMultiLineActivity extends AppCompatActivity {
         setContentView(R.layout.activity_select_multi_line);
 
         spinPrefixo1 = (Spinner) findViewById(R.id.spinPrefixo1Multi);
-        spinPrefixo2 = (Spinner) findViewById(R.id.spinPrefixo2Multi);
-        spinPrefixo3 = (Spinner) findViewById(R.id.spinPrefixo3Multi);
+        //spinPrefixo2 = (Spinner) findViewById(R.id.spinPrefixo2Multi);
+        //spinPrefixo3 = (Spinner) findViewById(R.id.spinPrefixo3Multi);
         spinAno1 = (Spinner) findViewById(R.id.spinAno1Multi);
-        spinAno2 = (Spinner) findViewById(R.id.spinAno2Multi);
-        spinAno3 = (Spinner) findViewById(R.id.spinAno3Multi);
+        //spinAno2 = (Spinner) findViewById(R.id.spinAno2Multi);
+        //spinAno3 = (Spinner) findViewById(R.id.spinAno3Multi);
         btSelecionar = (Button) findViewById(R.id.btSelecionarMulti);
         postoDao = new PostoDAO();
 
@@ -40,11 +40,11 @@ public class SelectMultiLineActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(SelectMultiLineActivity.this, MultiLineActivity.class);
                 intent.putExtra("prefixo1", spinPrefixo1.getSelectedItem().toString());
-                intent.putExtra("prefixo2", spinPrefixo2.getSelectedItem().toString());
-                intent.putExtra("prefixo3", spinPrefixo3.getSelectedItem().toString());
+                //intent.putExtra("prefixo2", spinPrefixo2.getSelectedItem().toString());
+                //intent.putExtra("prefixo3", spinPrefixo3.getSelectedItem().toString());
                 intent.putExtra("ano1", spinAno1.getSelectedItem().toString());
-                intent.putExtra("ano2", spinAno2.getSelectedItem().toString());
-                intent.putExtra("ano3", spinAno3.getSelectedItem().toString());
+                //intent.putExtra("ano2", spinAno2.getSelectedItem().toString());
+                //intent.putExtra("ano3", spinAno3.getSelectedItem().toString());
                 startActivity(intent);
             }
         });
@@ -61,7 +61,7 @@ public class SelectMultiLineActivity extends AppCompatActivity {
             }
         });
 
-        spinPrefixo2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        /*spinPrefixo2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 addAno2Spinner(spinPrefixo2.getSelectedItem().toString());
@@ -83,7 +83,7 @@ public class SelectMultiLineActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> adapterView) {
 
             }
-        });
+        });*/
     }
 
     public void addPrefixoSpinner() {
@@ -92,8 +92,8 @@ public class SelectMultiLineActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, prefixo);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinPrefixo1.setAdapter(adapter);
-        spinPrefixo2.setAdapter(adapter);
-        spinPrefixo3.setAdapter(adapter);
+        //spinPrefixo2.setAdapter(adapter);
+        //spinPrefixo3.setAdapter(adapter);
     }
 
     public void addAno1Spinner(String prefixo) {
@@ -112,6 +112,7 @@ public class SelectMultiLineActivity extends AppCompatActivity {
         spinAno1.setAdapter(adapter);
     }
 
+    /*
     public void addAno2Spinner(String prefixo) {
         ArrayList<String> ano = postoDao.getAno(prefixo);
         int ano_ini = Integer.parseInt(ano.get(0));
@@ -143,4 +144,5 @@ public class SelectMultiLineActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinAno3.setAdapter(adapter);
     }
+    */
 }

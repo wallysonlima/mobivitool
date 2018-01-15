@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         btMultiline.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, MultiLineActivity.class);
+                Intent intent = new Intent(MainActivity.this, SelectMultiLineActivity.class);
                 startActivity(intent);
             }
         });

@@ -1,56 +1,97 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <link href="css/nv.d3.css" rel="stylesheet" type="text/css">
-    <script src="https://d3js.org/d3.v3.min.js"></script>
-    <script src="js/nv.d3.js"></script>
-    <script src="js/stream_layers.js"></script>
+<meta charset="utf-8">
+<style>
 
-    <style>
-        text {
-            font: 12px sans-serif;
-        }
-        svg {
-            display: block;
-        }
-        html, body, #chart, svg {
-            margin: 0px;
-            padding: 0px;
-            height: 100%;
-            width: 365;
-        }
-    </style>
-</head>
+body {
+  font: 10px sans-serif;
+}
+
+.bar rect {
+  fill: #00BCD4;
+}
+
+.bar text.value {
+  fill: white;
+}
+
+.axis {
+  shape-rendering: crispEdges;
+}
+
+.axis path {
+  fill: none;
+}
+
+.x.axis line {
+  stroke: #fff;
+  stroke-opacity: .8;
+}
+
+.y.axis path {
+  stroke: black;
+}
+
+</style>
 <body>
-
-<div id="chart" class='with-3d-shadow with-transitions'>
-    <svg></svg>
-</div>
-
+<script src = "http://d3js.org/d3.v3.js"></script>
 <script>
-    nv.addGraph(function() {
-        var chart = nv.models.lineWithFocusChart();
-        chart.brushExtent([50,70]);
-        chart.xAxis.tickFormat(d3.format(',f')).axisLabel("Stream - 3,128,.1");
-        chart.x2Axis.tickFormat(d3.format(',f'));
-        chart.yTickFormat(d3.format(',.2f'));
-        chart.useInteractiveGuideline(true);
-        d3.select('#chart svg')
-            .datum(testData())
-            .call(chart);
-        nv.utils.windowResize(chart.update);
-        return chart;
-    });
-    function testData() {
-        return stream_layers(3,128,.1).map(function(data, i) {
-            return {
-                key: 'Stream' + i,
-                area: i === 1,
-                values: data
-            };
-        });
-    }
+
+var m = [30, 10, 10, 30],
+    w = 355 - m[1] - m[3],
+    h = 500 - m[0] - m[2];
+
+var format = d3.format(",.0f");
+
+var x = d3.scale.linear().range([0, w]),
+    y = d3.scale.ordinal().rangeRoundBands([0, h], .1);
+
+var xAxis = d3.svg.axis().scale(x).orient("top").tickSize(-h),
+    yAxis = d3.svg.axis().scale(y).orient("left").tickSize(0);
+
+var svg = d3.select("body").append("svg")
+    .attr("width", w + m[1] + m[3])
+    .attr("height", h + m[0] + m[2])
+  .append("g")
+    .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
+
+d3.csv("file:///data/data/wallyson.lima.mobivitool/files/multiline.csv", function(error, data) {
+  if (error) throw error;
+
+  // Parse numbers, and sort by value.
+  data.forEach(function(d) { d.average = +d.average; });
+  data.sort(function(a, b) { return b.average - a.average; });
+
+  // Set the scale domain.
+  x.domain([0, d3.max(data, function(d) { return d.average; })]);
+  y.domain(data.map(function(d) { return d.date; }));
+
+  var bar = svg.selectAll("g.bar")
+      .data(data)
+    .enter().append("g")
+      .attr("class", "bar")
+      .attr("transform", function(d) { return "translate(0," + y(d.date) + ")"; });
+
+  bar.append("rect")
+      .attr("width", function(d) { return x(d.average); })
+      .attr("height", y.rangeBand());
+
+  bar.append("text")
+      .attr("class", "value")
+      .attr("x", function(d) { return x(d.average); })
+      .attr("y", y.rangeBand() / 2)
+      .attr("dx", -3)
+      .attr("dy", ".35em")
+      .attr("text-anchor", "end")
+      .text(function(d) { return format(d.average); });
+
+  svg.append("g")
+      .attr("class", "x axis")
+      .call(xAxis);
+
+  svg.append("g")
+      .attr("class", "y axis")
+      .call(yAxis);
+});
+
 </script>
 </body>
-</html>

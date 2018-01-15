@@ -20,6 +20,14 @@ public class Posto {
         this.intervalo = intervalo;
     }
 
+    public Posto(String prefixo, String municipio, String bacia, String latitude, String longitude) {
+        this.prefixo = prefixo;
+        this.municipio = municipio;
+        this.bacia = bacia;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
     public String getPrefixo() {
         return prefixo;
     }

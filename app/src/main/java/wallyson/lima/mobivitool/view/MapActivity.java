@@ -1,5 +1,6 @@
 package wallyson.lima.mobivitool.view;
 
+import android.content.Context;
 import android.content.res.AssetManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -11,39 +12,44 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.util.ArrayList;
 
 import wallyson.lima.mobivitool.R;
+import wallyson.lima.mobivitool.dao.PostoDAO;
+import wallyson.lima.mobivitool.dao.PrecipitacaoDAO;
+import wallyson.lima.mobivitool.model.Posto;
+import wallyson.lima.mobivitool.model.Precipitacao;
 import wallyson.lima.mobivitool.presenter.MapInterface;
 import wallyson.lima.mobivitool.presenter.MapPresenter;
 import wallyson.lima.mobivitool.presenter.MultiPresenter;
 
 public class MapActivity extends AppCompatActivity implements MapInterface {
-    private DrawerLayout mDrawerLayout;
-    private ActionBarDrawerToggle mToggle;
     private WebView webview;
     private MapPresenter mPresenter;
+    private String ano, mes, nomeArquivo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.mapLayout);
-        mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
-
-        mDrawerLayout.addDrawerListener(mToggle);
-        mToggle.syncState();
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         webview = (WebView) findViewById(R.id.webviewmap);
         mPresenter = new MapPresenter(this, this.getApplicationContext(), webview);
+        nomeArquivo = "map.csv";
+        ano = getIntent().getStringExtra("ano");
+        mes = getIntent().getStringExtra("mes");
 
         //load the chart
+        writeData();
         loadChart("html/mapChart.html");
     }
 
@@ -55,7 +61,7 @@ public class MapActivity extends AppCompatActivity implements MapInterface {
         WebSettings webSettings =
                 webview.getSettings();
 
-        webview.addJavascriptInterface(mPresenter, "AndroidMultiLine");
+        webview.addJavascriptInterface(mPresenter, "AndroidMap");
         webview.setWebContentsDebuggingEnabled(true);
 
         webSettings.setJavaScriptEnabled(true);
@@ -96,12 +102,28 @@ public class MapActivity extends AppCompatActivity implements MapInterface {
         return writer.toString();
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if(mToggle.onOptionsItemSelected(item)) {
-            return true;
+    // Write data in simple.tsv
+    public void writeData() {
+        PrecipitacaoDAO preDao = new PrecipitacaoDAO();
+        PostoDAO postoDao = new PostoDAO();
+        ArrayList<Float> medias = preDao.getMediaChuvaPorMes(ano, mes);
+        ArrayList<Posto> postos = postoDao.getInfoPosto();
+        String texto = "prefixo,municipio,bacia,latitude,longitude,media\n";
+        FileOutputStream outputStream;
+
+        for (int i = 0; i < postos.size(); i++) {
+            texto += postos.get(i).getPrefixo() + "," + postos.get(i).getMunicipio() + "," +
+                    postos.get(i).getBacia() + "," + postos.get(i).getLatitude() + "," +
+                    postos.get(i).getLongitude() + "," + medias.get(i) + "\n";
         }
 
-        return super.onOptionsItemSelected(item);
+        try {
+        File file = new File(getApplicationContext().getFilesDir(), nomeArquivo);
+        outputStream = openFileOutput(nomeArquivo, Context.MODE_PRIVATE);
+        outputStream.write(texto.getBytes());
+        outputStream.close();
+    } catch (Exception e) {
+        e.printStackTrace();
     }
+}
 }

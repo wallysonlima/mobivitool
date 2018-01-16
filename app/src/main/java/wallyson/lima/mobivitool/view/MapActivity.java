@@ -1,6 +1,7 @@
 package wallyson.lima.mobivitool.view;
 
 import android.content.Context;
+import android.content.pm.ActivityInfo;
 import android.content.res.AssetManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -35,18 +36,26 @@ public class MapActivity extends AppCompatActivity implements MapInterface {
     private WebView webview;
     private MapPresenter mPresenter;
     private String ano, mes, nomeArquivo;
+    private int mesInt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         webview = (WebView) findViewById(R.id.webviewmap);
         mPresenter = new MapPresenter(this, this.getApplicationContext(), webview);
         nomeArquivo = "map.csv";
         ano = getIntent().getStringExtra("ano");
-        mes = getIntent().getStringExtra("mes");
+        mesInt = getIntent().getIntExtra("mes", 0);
+        mesInt++;
+
+        if ( mesInt < 10)
+            mes = "0" + String.valueOf(mesInt);
+        else
+            mes = String.valueOf(mesInt);
 
         //load the chart
         writeData();
@@ -108,13 +117,13 @@ public class MapActivity extends AppCompatActivity implements MapInterface {
         PostoDAO postoDao = new PostoDAO();
         ArrayList<Float> medias = preDao.getMediaChuvaPorMes(ano, mes);
         ArrayList<Posto> postos = postoDao.getInfoPosto();
-        String texto = "prefixo,municipio,bacia,latitude,longitude,media\n";
+        String texto = "municipio,prefixo,bacia,latitude,longitude,media\n";
         FileOutputStream outputStream;
 
-        for (int i = 0; i < postos.size(); i++) {
-            texto += postos.get(i).getPrefixo() + "," + postos.get(i).getMunicipio() + "," +
-                    postos.get(i).getBacia() + "," + postos.get(i).getLatitude() + "," +
-                    postos.get(i).getLongitude() + "," + medias.get(i) + "\n";
+        for (int i = 0; i < medias.size(); i++) {
+            texto += postos.get(i).getMunicipio() + "," + postos.get(i).getPrefixo() + "," +
+                    postos.get(i).getBacia() + "," + postos.get(i).getLatitude().substring(1) + "," +
+                    postos.get(i).getLongitude().substring(1) + "," + medias.get(i) + "\n";
         }
 
         try {
@@ -126,4 +135,5 @@ public class MapActivity extends AppCompatActivity implements MapInterface {
         e.printStackTrace();
     }
 }
+
 }

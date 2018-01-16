@@ -39,9 +39,8 @@ public class SelectMapActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(SelectMapActivity.this, MapActivity.class);
-                intent.putExtra("prefixo", spinPrefixo.getSelectedItem().toString());
                 intent.putExtra("ano", spinAno.getSelectedItem().toString());
-                intent.putExtra("mes", spinAno.getSelectedItem().toString());
+                intent.putExtra("mes", spinMes.getSelectedItemPosition());
                 startActivity(intent);
             }
         });
@@ -142,6 +141,6 @@ public class SelectMapActivity extends AppCompatActivity {
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, mes);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinPrefixo.setAdapter(adapter);
+        spinMes.setAdapter(adapter);
     }
 }

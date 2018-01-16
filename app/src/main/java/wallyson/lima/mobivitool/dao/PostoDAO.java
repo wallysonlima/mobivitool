@@ -90,7 +90,7 @@ public class PostoDAO {
 
     public ArrayList<Posto> getInfoPosto() {
         DB con = new DB();
-        String sql = "SELECT prefixo, municipio, bacia, latitude, longitude FROM `posto` WHERE WHERE prefixo IN (" +
+        String sql = "SELECT prefixo, municipio, bacia, latitude, longitude FROM `posto` WHERE prefixo IN (" +
                 "'D4-004', 'B7-047', " +
                 "'C5-008', 'D7-020', 'E3-074', 'D5-080', 'B5-002', 'D6-001', 'D5-019', " +
                 "'D3-002', 'E5-047', 'E3-038', 'C8-043', 'B4-001', 'E3-002', 'E4-135', 'E4-023', 'C5-025', " +

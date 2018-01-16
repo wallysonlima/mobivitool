@@ -110,7 +110,7 @@ public class PrecipitacaoDAO {
 
     public int getMes(String prefixo, String ano) {
         DB con = new DB();
-        String sql = "SELECT COUNT(mes) as qtde FROM `precipitacao` WHERE prefixo='" + prefixo + "'" +
+        String sql = "SELECT COUNT(mes) as qtde FROM `precipitacao` WHERE prefixo='" + prefixo + ".dat'" +
                 " and ano='" + ano + "';";
 
         int mes = 0;

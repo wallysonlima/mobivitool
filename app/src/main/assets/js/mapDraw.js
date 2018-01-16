@@ -25,14 +25,15 @@ function createNYCMap(){
             var svg = d3.select("#map_4")
             .append("svg")
             .attr("width", width_4)
-            .attr("height", height_4);
+            .attr("height", height_4)
+            .style("margin-left", 100);
 
             // Define the g for each neighborhood
             var g = svg.append("g");
 
             var tooltip = d3.select("#map_4").append("div").attr("class","tooltip");
 
-            d3.json("sp.topojson", function(error, geodata) {
+            d3.json("data/sp.topojson", function(error, geodata) {
                 if (error) return console.log(error);
 
                 //Create a path for each map feature in the data
@@ -68,21 +69,27 @@ function createNYCMap(){
 
                 // Write staff on tooltip
                 div.html("Cidade:" + "<strong>" + d.properties.Agencia_CE.toLowerCase().toUpperCase().substring(21) + "</strong>" + "<br/>" +
-                   "Total Number of Complaints:" + '<strong id="frequency"></strong>' + "<br/>" +
-                   "Most Common Complaint:" + '<strong id="districtName"></strong>'
+                   "Prefixo:" + '<strong id="prefixo"></strong>' + "<br/>" +
+                   "Bacia:" + '<strong id="bacia"></strong>' + "<br/>" +
+                   "Latitude:" + '<strong id="latitude"></strong>' + "<br/>" +
+                   "Longitude:" + '<strong id="longitude"></strong>' + "<br/>" +
+                   "Media:" + '<strong id="media"></strong>'
                    )
                 // Place the tooltip
                 div.style("left", (d3.mouse(this)[0]) + "px")
                 .style("top", (d3.mouse(this)[1]) + "px");
 
                 // Load CSV for filling the missing info on tooltip
-                d3.csv("total_neight.csv", function(data) {
-                    var districtName = d.properties.PO_NAME.toUpperCase();
+                d3.csv("file:///data/data/wallyson.lima.mobivitool/files/map.csv", function(data) {
+                    var districtName = tiraAcento(d.properties.Agencia_CE.toLowerCase().toUpperCase().substring(21));
                     var matchFound = false;
                     for(var i=0;i<data.length;i++) {
-                        if (data[i]["City"]==districtName) {
-                            $("#districtName").html(data[i]['top_complaint']);
-                            $("#frequency").html(data[i]['count']);
+                        if (data[i]["municipio"]==districtName) {
+                            $("#prefixo").html(data[i]['prefixo']);
+                            $("#bacia").html(data[i]['bacia']);
+                            $("#latitude").html(data[i]['latitude']);
+                            $("#longitude").html(data[i]['longitude']);
+                            $("#media").html(data[i]['media']);
                             matchFound = true;
                         }
                     }
@@ -136,7 +143,17 @@ function createNYCMap(){
         }
     }
 
+    function tiraAcento(str)
+    {
+        str = str.replace(/[ÀÁÂÃÄÅ]/,"A");
+        str = str.replace(/[ÒÓÔÕ]/,"O");
+        str = str.replace(/[ÌÍÎ]/,"I");
+        str = str.replace(/[ÈÉÊË]/,"E");
+        str = str.replace(/[ÙÚÛŨ]/,"U");
+        str = str.replace(/[Ç]/,"C");
 
+        return str.replace(/[^a-z0-9]/gi,'');
+    }
 
 
         // Load NYC map function

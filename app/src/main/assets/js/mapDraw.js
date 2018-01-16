@@ -143,18 +143,6 @@ function createNYCMap(){
         }
     }
 
-    function tiraAcento(str)
-    {
-        str = str.replace(/[ÀÁÂÃÄÅ]/,"A");
-        str = str.replace(/[ÒÓÔÕ]/,"O");
-        str = str.replace(/[ÌÍÎ]/,"I");
-        str = str.replace(/[ÈÉÊË]/,"E");
-        str = str.replace(/[ÙÚÛŨ]/,"U");
-        str = str.replace(/[Ç]/,"C");
-
-        return str.replace(/[^a-z0-9]/gi,'');
-    }
-
     function removeAccents (text) {
         var accents    = 'ÀÁÂÃÄÅàáâãäåÒÓÔÕÕÖØòóôõöøÈÉÊËèéêëðÇçÐÌÍÎÏìíîïÙÚÛÜùúûüÑñŠšŸÿýŽž',
             accentsOut = "AAAAAAaaaaaaOOOOOOOooooooEEEEeeeeeCcDIIIIiiiiUUUUuuuuNnSsYyyZz",

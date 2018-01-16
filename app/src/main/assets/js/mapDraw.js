@@ -81,7 +81,7 @@ function createNYCMap(){
 
                 // Load CSV for filling the missing info on tooltip
                 d3.csv("file:///data/data/wallyson.lima.mobivitool/files/map.csv", function(data) {
-                    var districtName = tiraAcento(d.properties.Agencia_CE.toLowerCase().toUpperCase().substring(21));
+                    var districtName = removeAccents(d.properties.Agencia_CE.toLowerCase().toUpperCase().substring(21));
                     var matchFound = false;
                     for(var i=0;i<data.length;i++) {
                         if (data[i]["municipio"]==districtName) {
@@ -153,6 +153,22 @@ function createNYCMap(){
         str = str.replace(/[Ç]/,"C");
 
         return str.replace(/[^a-z0-9]/gi,'');
+    }
+
+    function removeAccents (text) {
+        var accents    = 'ÀÁÂÃÄÅàáâãäåÒÓÔÕÕÖØòóôõöøÈÉÊËèéêëðÇçÐÌÍÎÏìíîïÙÚÛÜùúûüÑñŠšŸÿýŽž',
+            accentsOut = "AAAAAAaaaaaaOOOOOOOooooooEEEEeeeeeCcDIIIIiiiiUUUUuuuuNnSsYyyZz",
+            textNoAccents = [];
+
+        for (var i in text) {
+            var idx = accents.indexOf(text[i]);
+            if (idx != -1)
+                textNoAccents[i] = accentsOut.substr(idx, 1);
+            else
+                textNoAccents[i] = text[i];
+        }
+
+        return textNoAccents.join('');
     }
 
 

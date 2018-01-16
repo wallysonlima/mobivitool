@@ -78,8 +78,8 @@ public class ZoomActivity extends AppCompatActivity implements ZoomInterface {
         webSettings.setLoadWithOverviewMode(true);
         webSettings.setDefaultTextEncodingName("utf-8");
 
-
         AssetManager mgr = getBaseContext().getAssets();
+
         try {
             InputStream in = mgr.open(remoteUrl, AssetManager.ACCESS_BUFFER);
             html = readHtml(in);

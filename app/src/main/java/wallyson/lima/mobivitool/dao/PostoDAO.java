@@ -36,11 +36,10 @@ public class PostoDAO {
         return pre;
     }
 
-    public ArrayList<String> getPrefixoMunicipio(String municipio) {
+    public String getPrefixoMunicipio(String municipio) {
         DB con = new DB();
         String sql = "SELECT DISTINCT prefixo FROM `posto` where municipio='" + municipio + "' ;";
 
-        ArrayList<String> pre = new ArrayList<>();
         ResultSet rs = null;
 
         try {
@@ -48,7 +47,7 @@ public class PostoDAO {
 
             if ( rs != null ) {
                 while( rs.next() ) {
-                    pre.add(rs.getString("prefixo"));
+                    return rs.getString("prefixo");
                 }
             }
         } catch (SQLException e) {
@@ -57,7 +56,7 @@ public class PostoDAO {
             con.desconecta();
         }
 
-        return pre;
+        return null;
     }
 
     public ArrayList<String> getMunicipio() {

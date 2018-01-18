@@ -59,6 +59,29 @@ public class PostoDAO {
         return null;
     }
 
+    public String getMunicipioPrefixo(String prefixo) {
+        DB con = new DB();
+        String sql = "SELECT DISTINCT municipio FROM `posto` where prefixo='" + prefixo + "' ;";
+
+        ResultSet rs = null;
+
+        try {
+            rs = con.select(sql);
+
+            if ( rs != null ) {
+                while( rs.next() ) {
+                    return rs.getString("municipio");
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            con.desconecta();
+        }
+
+        return null;
+    }
+
     public ArrayList<String> getMunicipio() {
         DB con = new DB();
         String sql = "SELECT DISTINCT municipio FROM `posto`;";

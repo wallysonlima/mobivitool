@@ -46,7 +46,7 @@ public class SelectHorizontActivity extends AppCompatActivity {
                 intent.putExtra("prefixo3", postoDao.getPrefixoMunicipio(spinPrefixo3.getSelectedItem().toString()));
                 intent.putExtra("prefixo3", postoDao.getPrefixoMunicipio(spinPrefixo4.getSelectedItem().toString()));
                 intent.putExtra("prefixo3", postoDao.getPrefixoMunicipio(spinPrefixo5.getSelectedItem().toString()));
-                intent.putExtra("ano1", spinAno.getSelectedItem().toString());
+                intent.putExtra("ano", spinAno.getSelectedItem().toString());
                 startActivity(intent);
             }
         });

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+    <style>
+
+body {
+  font-family: 'Lucida Grande', 'Lucida Sans Unicode', Arial, Helvetica, "Helvetica Neue", Helvetica, sans-serif;
+  margin: 30px auto;
+  width: 960px;
+  position: relative;
+}
+
+header {
+  padding: 6px 0;
+}
+
+.group {
+  margin-bottom: 1em;
+}
+
+.axis {
+  font: 10px sans-serif;
+  position: fixed;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.axis text {
+  -webkit-transition: fill-opacity 250ms linear;
+  font-family: 'Lucida Grande', 'Lucida Sans Unicode', Arial, Helvetica, "Helvetica Neue", Helvetica, sans-serif;
+}
+
+.axis path {
+  display: none;
+}
+
+.axis line {
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.axis.top {
+  background-image: linear-gradient(top, #fff 0%, rgba(255,255,255,0) 100%);
+  background-image: -o-linear-gradient(top, #fff 0%, rgba(255,255,255,0) 100%);
+  background-image: -moz-linear-gradient(top, #fff 0%, rgba(255,255,255,0) 100%);
+  background-image: -webkit-linear-gradient(top, #fff 0%, rgba(255,255,255,0) 100%);
+  background-image: -ms-linear-gradient(top, #fff 0%, rgba(255,255,255,0) 100%);
+  top: 0px;
+  padding: 0 0 24px 0;
+}
+
+.axis.bottom {
+  background-image: linear-gradient(bottom, #fff 0%, rgba(255,255,255,0) 100%);
+  background-image: -o-linear-gradient(bottom, #fff 0%, rgba(255,255,255,0) 100%);
+  background-image: -moz-linear-gradient(bottom, #fff 0%, rgba(255,255,255,0) 100%);
+  background-image: -webkit-linear-gradient(bottom, #fff 0%, rgba(255,255,255,0) 100%);
+  background-image: -ms-linear-gradient(bottom, #fff 0%, rgba(255,255,255,0) 100%);
+  bottom: 0px;
+  padding: 24px 0 0 0;
+}
+
+.horizon {
+  border-bottom: solid 1px #000;
+  overflow: hidden;
+  position: relative;
+}
+
+.horizon {
+  border-top: solid 1px #000;
+  border-bottom: solid 1px #000;
+}
+
+.horizon + .horizon {
+  border-top: none;
+}
+
+.horizon canvas {
+  display: block;
+}
+
+.horizon .title,
+.horizon .value {
+  bottom: 0;
+  line-height: 30px;
+  margin: 0 6px;
+  position: absolute;
+  text-shadow: 0 1px 0 rgba(255,255,255,.5);
+  white-space: nowrap;
+  font-size: 12px;
+}
+
+.horizon .title {
+  left: 0;
+}
+
+.horizon .value {
+  right: 0;
+}
+
+.line {
+  background: #000;
+  z-index: 2;
+}
+
+</style>
+</head>
+
+<body id="demo">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js" charset="utf-8"></script>
+<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script src="js/cubism.js" charset="utf-8"></script>
+<script>
+		var dF = new Date();
+    var compareToBaseline = 1,
+        showChangeInPercent = 1,
+        smoothen = 1,
+        width = 960;
+
+    d3.csv("dfile:///data/data/wallyson.lima.mobivitool/files/horizont.csv", function(error, data) {
+//       data = data.slice(200)
+      var time = _.map(data[0]['_time'], function(d) { return new Date(d); } );
+			data = _.map(data, function(d) { delete(d['_time']); return d;});
+
+      var timeScale = d3.time.scale()
+      .domain(d3.extent(time));
+
+      var context = cubism.context()
+//       .scale(timeScale)
+      .serverDelay(0) //correct sign so axis is correct & not in future.
+          .step(60 * 60 * 24 * 1000 * (data.length / width))
+          .size(width)
+          .stop();
+
+    d3.select("#demo").selectAll(".axis")
+        .data(["top", "bottom"])
+      .enter().append("div")
+        .attr("class", function(d) { return d + " axis"; })
+        .each(function(d) { 		d3.select(this).call(context.axis().ticks(12).orient(d)); });
+
+    d3.select("body").append("div")
+        .attr("class", "rule")
+        .call(context.rule());
+
+
+      context.on("focus", function(i) {
+        if (i > 100) {
+				  d3.selectAll(".value").style({
+           	"right": i == null ? null : context.size() - i + "px",
+            "left": null
+          });
+        } else {
+				  d3.selectAll(".value").style({
+						"left": i == null ? null : i + "px",
+            "right": null
+          });
+        }
+});
+
+
+
+      var stocks = _.keys(data[0]);
+
+      data = _.map(stocks, function(stockSymbol, i) {
+        var compare = +data[0][stockSymbol];
+        return _.map(d3.range(data.length), function(idx) {
+          return compareToBaseline ?
+            showChangeInPercent ? ((+data[idx][stockSymbol] - compare) / compare) : (+data[idx][stockSymbol] - compare)
+          : +data[idx][stockSymbol];
+        })
+      });
+
+
+      function metric(name, values) {
+        var num = context.size();
+        console.log(num)
+        return context.metric(function(start, stop, step, callback) {
+          var data = _.map(d3.range(num), function(d) {
+						var value = values[0];
+            var idxCalculated = values.length / num * d;
+            var idx = Math.floor(idxCalculated);
+            if (d > 0) {
+              var i = d3.interpolateNumber(values[idx-1], values[idx]);
+              value = smoothen ? i(idxCalculated % 1) : values[idx]
+            }
+            return value;
+          })
+          callback(null, data);
+        }, name.substr(5));
+      };
+
+      var metrics = _.map(data, function(d, i) {
+        return metric(stocks[i], data[i]);
+      });
+
+      var stocks = _.keys(data[0]);
+
+      d3.select("body").selectAll(".horizon")
+          .data(metrics)
+        .enter().insert("div", ".bottom")
+          .attr("class", "horizon")
+        .call(context.horizon()
+              .mode("mirror")
+              .colors(["#E06C4C", "#EBA18F", "#F5D2CA", "#C0E2F0", "#7AC4E0", "#1DA4D1"])
+          .format(compareToBaseline ? showChangeInPercent ?  d3.format("+,.3p") : d3.format("+,.2f") : d3.format(".2f")));
+    })
+
+  </script>
+</body>

@@ -15,10 +15,6 @@ public class Precipitacao {
         this.media = media;
     }
 
-    public Precipitacao(Float media) {
-        this.media = media;
-    }
-
     public String getPrefixo() {
         return prefixo;
     }

@@ -118,7 +118,7 @@ header {
         smoothen = 1,
         width = 960;
 
-    d3.csv("dfile:///data/data/wallyson.lima.mobivitool/files/horizont.csv", function(error, data) {
+    d3.csv("file:///data/data/wallyson.lima.mobivitool/files/horizont.csv", function(error, data) {
 //       data = data.slice(200)
       var time = _.map(data[0]['_time'], function(d) { return new Date(d); } );
 			data = _.map(data, function(d) { delete(d['_time']); return d;});
@@ -129,7 +129,7 @@ header {
       var context = cubism.context()
 //       .scale(timeScale)
       .serverDelay(0) //correct sign so axis is correct & not in future.
-          .step(60 * 60 * 24 * 1000 * (data.length / width))
+          .step(60 * 60 * 24 * 31 * 1000 * (data.length / width))
           .size(width)
           .stop();
 

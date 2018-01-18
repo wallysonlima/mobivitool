@@ -80,6 +80,14 @@ public class SelectMapActivity extends AppCompatActivity {
 
     public void addAnoSpinner(String prefixo) {
         ArrayList<String> ano = postoDao.getAno(prefixo);
+        int tam1 = ano.get(0).length();
+        int tam2 = ano.get(1).length();
+
+        if ( tam1 == 5 )
+            ano.set(0, ano.get(0).substring(1));
+        if ( tam2 == 5)
+            ano.set(1, ano.get(1).substring(1));
+
         int ano_ini = Integer.parseInt(ano.get(0));
         int ano_fim = Integer.parseInt(ano.get(1));
         int duracao = ano_fim - ano_ini;

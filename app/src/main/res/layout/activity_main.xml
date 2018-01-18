@@ -98,7 +98,7 @@
             android:id="@+id/btHorizont"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="19dp"
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:background="@mipmap/ic_multiline"
             android:elevation="18dp"

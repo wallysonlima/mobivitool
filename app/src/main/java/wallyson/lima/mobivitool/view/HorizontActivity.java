@@ -38,7 +38,7 @@ public class HorizontActivity extends AppCompatActivity {
         setContentView(R.layout.activity_horizont);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
-        webview = (WebView) findViewById(R.id.webviewtimeline);
+        webview = (WebView) findViewById(R.id.webviewhorizont);
         nomeArquivo = "horizont.csv";
         prefixo1 = getIntent().getStringExtra("prefixo1");
         prefixo2 = getIntent().getStringExtra("prefixo2");
@@ -104,11 +104,11 @@ public class HorizontActivity extends AppCompatActivity {
     public void writeData() {
         PrecipitacaoDAO preDao = new PrecipitacaoDAO();
         PostoDAO postoDao = new PostoDAO();
-        ArrayList<Precipitacao> pre1 = preDao.getMediaChuvaMes(prefixo1);
-        ArrayList<Precipitacao> pre2 = preDao.getMediaChuvaMes(prefixo2);
-        ArrayList<Precipitacao> pre3 = preDao.getMediaChuvaMes(prefixo3);
-        ArrayList<Precipitacao> pre4 = preDao.getMediaChuvaMes(prefixo4);
-        ArrayList<Precipitacao> pre5 = preDao.getMediaChuvaMes(prefixo5);
+        ArrayList<Precipitacao> pre1 = preDao.getMediaChuvaAno(prefixo1, ano);
+        ArrayList<Precipitacao> pre2 = preDao.getMediaChuvaAno(prefixo2, ano);
+        ArrayList<Precipitacao> pre3 = preDao.getMediaChuvaAno(prefixo3, ano);
+        ArrayList<Precipitacao> pre4 = preDao.getMediaChuvaAno(prefixo4, ano);
+        ArrayList<Precipitacao> pre5 = preDao.getMediaChuvaAno(prefixo5, ano);
         String municipio1 = postoDao.getMunicipioPrefixo(prefixo1);
         String municipio2 = postoDao.getMunicipioPrefixo(prefixo2);
         String municipio3 = postoDao.getMunicipioPrefixo(prefixo3);
@@ -126,7 +126,7 @@ public class HorizontActivity extends AppCompatActivity {
         int tamanho = tam.get(0);
 
         if ( tamanho != 0 )
-            texto = "date,WIKI/" + municipio1 + ",WIKI/" + municipio2 + ",WIKI/" + municipio3 +
+            texto = "_time,WIKI/" + municipio1 + ",WIKI/" + municipio2 + ",WIKI/" + municipio3 +
                     ",WIKI/" + municipio4 + ",WIKI/" + municipio5 + "\n";
         else {
             Toast.makeText(getApplicationContext(), "Erro ! Algum municipio nao possue dados para o ano correspondente !", Toast.LENGTH_SHORT).show();
@@ -136,7 +136,7 @@ public class HorizontActivity extends AppCompatActivity {
         FileOutputStream outputStream;
 
         for (int i = 0; i < tamanho; i++ ) {
-            texto += pre1.get(i).getAno() + "-" + pre1.get(i).getMes() + "-01T00:00:00.000-0800," +
+            texto += pre1.get(i).getAno() + "-" + pre1.get(i).getMes() + "," +
                     pre1.get(i).getMedia() + "," + pre2.get(i).getMedia() + "," + pre3.get(i).getMedia() +
                     "," + pre4.get(i).getMedia() + "," + pre5.get(i).getMedia() + "\n";
         }

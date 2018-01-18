@@ -44,8 +44,8 @@ public class SelectHorizontActivity extends AppCompatActivity {
                 intent.putExtra("prefixo1", postoDao.getPrefixoMunicipio(spinPrefixo1.getSelectedItem().toString()));
                 intent.putExtra("prefixo2", postoDao.getPrefixoMunicipio(spinPrefixo2.getSelectedItem().toString()));
                 intent.putExtra("prefixo3", postoDao.getPrefixoMunicipio(spinPrefixo3.getSelectedItem().toString()));
-                intent.putExtra("prefixo3", postoDao.getPrefixoMunicipio(spinPrefixo4.getSelectedItem().toString()));
-                intent.putExtra("prefixo3", postoDao.getPrefixoMunicipio(spinPrefixo5.getSelectedItem().toString()));
+                intent.putExtra("prefixo4", postoDao.getPrefixoMunicipio(spinPrefixo4.getSelectedItem().toString()));
+                intent.putExtra("prefixo5", postoDao.getPrefixoMunicipio(spinPrefixo5.getSelectedItem().toString()));
                 intent.putExtra("ano", spinAno.getSelectedItem().toString());
                 startActivity(intent);
             }
@@ -79,6 +79,14 @@ public class SelectHorizontActivity extends AppCompatActivity {
     public void addAnoSpinner(String municipio) {
         String prefixo = postoDao.getPrefixoMunicipio(municipio);
         ArrayList<String> ano = postoDao.getAno(prefixo);
+        int tam1 = ano.get(0).length();
+        int tam2 = ano.get(1).length();
+
+        if ( tam1 == 5 )
+            ano.set(0, ano.get(0).substring(1));
+        if ( tam2 == 5)
+            ano.set(1, ano.get(1).substring(1));
+
         int ano_ini = Integer.parseInt(ano.get(0));
         int ano_fim = Integer.parseInt(ano.get(1));
         int duracao = ano_fim - ano_ini;

@@ -25,7 +25,7 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="80dp"
-            android:layout_marginTop="350dp"
+            android:layout_marginTop="370dp"
             android:text="Selecionar" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

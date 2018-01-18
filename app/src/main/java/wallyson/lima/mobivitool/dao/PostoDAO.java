@@ -84,7 +84,7 @@ public class PostoDAO {
 
     public ArrayList<String> getMunicipio() {
         DB con = new DB();
-        String sql = "SELECT DISTINCT municipio FROM `posto`;";
+        String sql = "SELECT DISTINCT municipio FROM `posto` ORDER BY municipio;";
 
         ArrayList<String> pre = new ArrayList<>();
         ResultSet rs = null;

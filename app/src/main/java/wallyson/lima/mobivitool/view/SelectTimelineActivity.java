@@ -33,15 +33,15 @@ public class SelectTimelineActivity extends AppCompatActivity {
         btSelecionar = (Button) findViewById(R.id.btSelecionarTimeline);
         postoDao = new PostoDAO();
 
-        addPrefixoSpinner();
+        addMunicipioSpinner();
 
         btSelecionar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(SelectTimelineActivity.this, TimelineActivity.class);
-                intent.putExtra("prefixo1", spinPrefixo1.getSelectedItem().toString());
-                intent.putExtra("prefixo2", spinPrefixo2.getSelectedItem().toString());
-                intent.putExtra("prefixo3", spinPrefixo3.getSelectedItem().toString());
+                intent.putExtra("prefixo1", postoDao.getPrefixoMunicipio(spinPrefixo1.getSelectedItem().toString()));
+                intent.putExtra("prefixo2", postoDao.getPrefixoMunicipio(spinPrefixo2.getSelectedItem().toString()));
+                intent.putExtra("prefixo3", postoDao.getPrefixoMunicipio(spinPrefixo3.getSelectedItem().toString()));
                 intent.putExtra("ano1", spinAno1.getSelectedItem().toString());
                 intent.putExtra("ano2", spinAno2.getSelectedItem().toString());
                 intent.putExtra("ano3", spinAno3.getSelectedItem().toString());
@@ -86,18 +86,28 @@ public class SelectTimelineActivity extends AppCompatActivity {
         });
     }
 
-    public void addPrefixoSpinner() {
-        ArrayList<String> prefixo = postoDao.getPrefixo();
+    public void addMunicipioSpinner() {
+        ArrayList<String> municipio = postoDao.getMunicipio();
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, prefixo);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, municipio);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinPrefixo1.setAdapter(adapter);
         spinPrefixo2.setAdapter(adapter);
         spinPrefixo3.setAdapter(adapter);
     }
 
-    public void addAno1Spinner(String prefixo) {
+    public void addAno1Spinner(String municipio) {
+        String prefixo = postoDao.getPrefixoMunicipio(municipio);
         ArrayList<String> ano = postoDao.getAno(prefixo);
+
+        int tam1 = ano.get(0).length();
+        int tam2 = ano.get(1).length();
+
+        if ( tam1 == 5 )
+            ano.set(0, ano.get(0).substring(1));
+        if ( tam2 == 5)
+            ano.set(1, ano.get(1).substring(1));
+
         int ano_ini = Integer.parseInt(ano.get(0));
         int ano_fim = Integer.parseInt(ano.get(1));
         int duracao = ano_fim - ano_ini;
@@ -112,8 +122,18 @@ public class SelectTimelineActivity extends AppCompatActivity {
         spinAno1.setAdapter(adapter);
     }
 
-    public void addAno2Spinner(String prefixo) {
+    public void addAno2Spinner(String municipio) {
+        String prefixo = postoDao.getPrefixoMunicipio(municipio);
         ArrayList<String> ano = postoDao.getAno(prefixo);
+
+        int tam1 = ano.get(0).length();
+        int tam2 = ano.get(1).length();
+
+        if ( tam1 == 5 )
+            ano.set(0, ano.get(0).substring(1));
+        if ( tam2 == 5)
+            ano.set(1, ano.get(1).substring(1));
+
         int ano_ini = Integer.parseInt(ano.get(0));
         int ano_fim = Integer.parseInt(ano.get(1));
         int duracao = ano_fim - ano_ini;
@@ -128,8 +148,18 @@ public class SelectTimelineActivity extends AppCompatActivity {
         spinAno2.setAdapter(adapter);
     }
 
-    public void addAno3Spinner(String prefixo) {
+    public void addAno3Spinner(String municipio) {
+        String prefixo = postoDao.getPrefixoMunicipio(municipio);
         ArrayList<String> ano = postoDao.getAno(prefixo);
+
+        int tam1 = ano.get(0).length();
+        int tam2 = ano.get(1).length();
+
+        if ( tam1 == 5 )
+            ano.set(0, ano.get(0).substring(1));
+        if ( tam2 == 5)
+            ano.set(1, ano.get(1).substring(1));
+
         int ano_ini = Integer.parseInt(ano.get(0));
         int ano_fim = Integer.parseInt(ano.get(1));
         int duracao = ano_fim - ano_ini;

@@ -53,9 +53,9 @@
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:layout_weight="0.16"
-            android:background="@mipmap/ic_horizontal_bar_chart"
+            android:background="@mipmap/ic_horizont"
             android:elevation="18dp"
-            app:srcCompat="@mipmap/ic_horizontal_bar_chart" />
+            app:srcCompat="@mipmap/ic_horizont" />
 
         <ImageButton
             android:id="@+id/btMap"
@@ -93,6 +93,16 @@
             android:background="@mipmap/ic_simplechart"
             android:elevation="18dp"
             app:srcCompat="@mipmap/ic_simplechart" />
+
+        <ImageButton
+            android:id="@+id/btHorizont"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:background="@mipmap/ic_multiline"
+            android:elevation="18dp"
+            app:srcCompat="@mipmap/ic_multiline" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

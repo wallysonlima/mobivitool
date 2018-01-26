@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
@@ -18,6 +19,8 @@ public class SelectSimpleActivity extends AppCompatActivity {
     private Button btSelecionar;
     private Spinner spinPrefixo, spinAno;
     private PostoDAO postoDao;
+    private RadioButton rbMes, rbMedia;
+    String tipo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +29,8 @@ public class SelectSimpleActivity extends AppCompatActivity {
         spinPrefixo = (Spinner) findViewById(R.id.spinPrefixoSimple);
         spinAno = (Spinner) findViewById(R.id.spinAnoSimple);
         btSelecionar = (Button) findViewById(R.id.btSelecionarSimple);
+        rbMedia = (RadioButton) findViewById(R.id.rbMedia);
+        rbMes = (RadioButton) findViewById(R.id.rbMes);
         postoDao = new PostoDAO();
 
         addPrefixoMunicipioSpinner();
@@ -37,6 +42,7 @@ public class SelectSimpleActivity extends AppCompatActivity {
                 String[] pre = spinPrefixo.getSelectedItem().toString().split("/");
                 intent.putExtra("prefixo", pre[0]);
                 intent.putExtra("ano", spinAno.getSelectedItem().toString());
+                intent.putExtra("tipo", rbMedia.isChecked() ? "media" : "mes" );
                 startActivity(intent);
             }
         });
@@ -53,6 +59,8 @@ public class SelectSimpleActivity extends AppCompatActivity {
 
             }
         });
+
+
     }
 
     public void addPrefixoMunicipioSpinner() {

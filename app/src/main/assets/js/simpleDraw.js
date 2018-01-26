@@ -36,6 +36,13 @@ var svg = d3.select("body").append("svg")
 svg.call(tip);
 
 d3.csv("file:///data/data/wallyson.lima.mobivitool/files/simple.csv", type, function(error, data) {
+  var tipo = document.getElementById("tipo").getAttribute('value');
+
+  if ( tipo  == "media" ) {
+      data.forEach(function(d) { d.frequency = +d.frequency; });
+      data.sort(function(a, b) { return b.frequency - a.frequency; });
+  }
+
   x.domain(data.map(function(d) { return d.letter; }));
   y.domain([0, d3.max(data, function(d) { return d.frequency; })]);
 

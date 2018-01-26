@@ -34,4 +34,7 @@ public class SimplePresenter {
     public int getHeight() {
         return webview.getHeight();
     }
+
+    @JavascriptInterface
+    public String getTipo() { return mView.getTipo(); }
 }

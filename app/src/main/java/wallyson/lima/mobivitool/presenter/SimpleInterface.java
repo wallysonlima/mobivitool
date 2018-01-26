@@ -5,4 +5,5 @@ package wallyson.lima.mobivitool.presenter;
  */
 
 public interface SimpleInterface {
+    public String getTipo();
 }

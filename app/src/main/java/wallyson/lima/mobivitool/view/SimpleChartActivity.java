@@ -30,7 +30,7 @@ import wallyson.lima.mobivitool.presenter.SimplePresenter;
 public class SimpleChartActivity extends AppCompatActivity implements SimpleInterface {
     private WebView webview;
     private SimplePresenter mPresenter;
-    private String prefixo, ano, nomeArquivo;
+    private String prefixo, ano, nomeArquivo, tipo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +43,7 @@ public class SimpleChartActivity extends AppCompatActivity implements SimpleInte
         nomeArquivo = "simple.csv";
         prefixo = getIntent().getStringExtra("prefixo");
         ano = getIntent().getStringExtra("ano");
+        tipo = getIntent().getStringExtra("tipo");
         //load the chart
         writeData();
         loadChart("html/simpleChart.html");
@@ -154,5 +155,9 @@ public class SimpleChartActivity extends AppCompatActivity implements SimpleInte
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public String getTipo() {
+        return this.tipo;
     }
 }

@@ -9,7 +9,7 @@ import android.widget.ImageButton;
 import wallyson.lima.mobivitool.R;
 
 public class MainActivity extends AppCompatActivity {
-    private ImageButton btTimeline, btZoom, btMultiline, btMap, btSimple, btHorizont;
+    private ImageButton btTimeline, btZoom, btMap, btSimple, btHorizont;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,7 +17,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         btTimeline = (ImageButton) findViewById(R.id.btTimeline);
         btZoom = (ImageButton) findViewById(R.id.btZoom);
-        btMultiline = (ImageButton) findViewById(R.id.btMultiline);
         btMap = (ImageButton) findViewById(R.id.btMap);
         btSimple = (ImageButton) findViewById(R.id.btSimple);
         btHorizont = (ImageButton) findViewById(R.id.btHorizont);
@@ -34,14 +33,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, SelectZoomActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        btMultiline.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, SelectMultiLineActivity.class);
                 startActivity(intent);
             }
         });

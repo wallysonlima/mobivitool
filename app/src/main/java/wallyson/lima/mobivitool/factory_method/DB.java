@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 public class DB extends _Default implements Runnable {
     private Connection conn;
     //private String host = "192.168.1.111";
-    private String host = "192.168.0.120";
+    private String host = "186.217.107.108";
     private String db = "mobivitool";
     private int port = 3306;
     private String user = "root";

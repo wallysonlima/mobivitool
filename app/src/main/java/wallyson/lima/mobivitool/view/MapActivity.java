@@ -3,11 +3,8 @@ package wallyson.lima.mobivitool.view;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.res.AssetManager;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -27,10 +24,8 @@ import wallyson.lima.mobivitool.R;
 import wallyson.lima.mobivitool.dao.PostoDAO;
 import wallyson.lima.mobivitool.dao.PrecipitacaoDAO;
 import wallyson.lima.mobivitool.model.Posto;
-import wallyson.lima.mobivitool.model.Precipitacao;
 import wallyson.lima.mobivitool.presenter.MapInterface;
 import wallyson.lima.mobivitool.presenter.MapPresenter;
-import wallyson.lima.mobivitool.presenter.MultiPresenter;
 
 public class MapActivity extends AppCompatActivity implements MapInterface {
     private WebView webview;

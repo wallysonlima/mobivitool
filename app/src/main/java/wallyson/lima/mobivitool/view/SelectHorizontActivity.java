@@ -16,8 +16,7 @@ import wallyson.lima.mobivitool.dao.PostoDAO;
 
 public class SelectHorizontActivity extends AppCompatActivity {
     private Button btSelecionar;
-    private Spinner spinPrefixo1, spinPrefixo2, spinPrefixo3, spinPrefixo4, spinPrefixo5,
-            spinAno;
+    private Spinner spinPrefixo1, spinPrefixo2, spinPrefixo3, spinPrefixo4, spinPrefixo5, spinAno;
     private PostoDAO postoDao;
 
     @Override
@@ -34,18 +33,23 @@ public class SelectHorizontActivity extends AppCompatActivity {
         btSelecionar = (Button) findViewById(R.id.btSelecionarHorizont);
         postoDao = new PostoDAO();
 
-        addMunicipioSpinner();
+        addPrefixoMunicipio();
 
         btSelecionar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(SelectHorizontActivity.this, HorizontActivity.class);
+                String[] pre1 = spinPrefixo1.getSelectedItem().toString().split("/");
+                String[] pre2 = spinPrefixo2.getSelectedItem().toString().split("/");
+                String[] pre3 = spinPrefixo3.getSelectedItem().toString().split("/");
+                String[] pre4 = spinPrefixo4.getSelectedItem().toString().split("/");
+                String[] pre5 = spinPrefixo5.getSelectedItem().toString().split("/");
 
-                intent.putExtra("prefixo1", postoDao.getPrefixoMunicipio(spinPrefixo1.getSelectedItem().toString()));
-                intent.putExtra("prefixo2", postoDao.getPrefixoMunicipio(spinPrefixo2.getSelectedItem().toString()));
-                intent.putExtra("prefixo3", postoDao.getPrefixoMunicipio(spinPrefixo3.getSelectedItem().toString()));
-                intent.putExtra("prefixo4", postoDao.getPrefixoMunicipio(spinPrefixo4.getSelectedItem().toString()));
-                intent.putExtra("prefixo5", postoDao.getPrefixoMunicipio(spinPrefixo5.getSelectedItem().toString()));
+                intent.putExtra("prefixo1", pre1[0]);
+                intent.putExtra("prefixo2", pre2[0]);
+                intent.putExtra("prefixo3", pre3[0]);
+                intent.putExtra("prefixo4", pre4[0]);
+                intent.putExtra("prefixo5", pre5[0]);
                 intent.putExtra("ano", spinAno.getSelectedItem().toString());
                 startActivity(intent);
             }
@@ -54,7 +58,8 @@ public class SelectHorizontActivity extends AppCompatActivity {
         spinPrefixo1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                addAnoSpinner(spinPrefixo1.getSelectedItem().toString());
+                String[] pre = spinPrefixo1.getSelectedItem().toString().split("/");
+                addAnoSpinner(pre[0]);
             }
 
             @Override
@@ -64,10 +69,10 @@ public class SelectHorizontActivity extends AppCompatActivity {
         });
     }
 
-    public void addMunicipioSpinner() {
-        ArrayList<String> municipio = postoDao.getMunicipio();
+    public void addPrefixoMunicipio() {
+        ArrayList<String> premuni = postoDao.getPrefixoAndMunicipio();
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, municipio);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, premuni);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinPrefixo1.setAdapter(adapter);
         spinPrefixo2.setAdapter(adapter);
@@ -76,8 +81,7 @@ public class SelectHorizontActivity extends AppCompatActivity {
         spinPrefixo5.setAdapter(adapter);
     }
 
-    public void addAnoSpinner(String municipio) {
-        String prefixo = postoDao.getPrefixoMunicipio(municipio);
+    public void addAnoSpinner(String prefixo) {
         ArrayList<String> ano = postoDao.getAno(prefixo);
         int tam1 = ano.get(0).length();
         int tam2 = ano.get(1).length();

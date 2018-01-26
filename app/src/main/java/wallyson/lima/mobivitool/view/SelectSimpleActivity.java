@@ -23,19 +23,19 @@ public class SelectSimpleActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_simple);
-
         spinPrefixo = (Spinner) findViewById(R.id.spinPrefixoSimple);
         spinAno = (Spinner) findViewById(R.id.spinAnoSimple);
         btSelecionar = (Button) findViewById(R.id.btSelecionarSimple);
         postoDao = new PostoDAO();
 
-        addMunicipioSpinner();
+        addPrefixoMunicipioSpinner();
 
         btSelecionar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(SelectSimpleActivity.this, SimpleChartActivity.class);
-                intent.putExtra("prefixo", postoDao.getPrefixoMunicipio(spinPrefixo.getSelectedItem().toString()));
+                String[] pre = spinPrefixo.getSelectedItem().toString().split("/");
+                intent.putExtra("prefixo", pre[0]);
                 intent.putExtra("ano", spinAno.getSelectedItem().toString());
                 startActivity(intent);
             }
@@ -44,7 +44,8 @@ public class SelectSimpleActivity extends AppCompatActivity {
         spinPrefixo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-               addAnoSpinner(spinPrefixo.getSelectedItem().toString());
+                String[] pre = spinPrefixo.getSelectedItem().toString().split("/");
+                addAnoSpinner(pre[0]);
             }
 
             @Override
@@ -54,16 +55,15 @@ public class SelectSimpleActivity extends AppCompatActivity {
         });
     }
 
-    public void addMunicipioSpinner() {
-        ArrayList<String> municipio = postoDao.getMunicipio();
+    public void addPrefixoMunicipioSpinner() {
+        ArrayList<String> premuni = postoDao.getPrefixoAndMunicipio();
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, municipio);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, premuni);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinPrefixo.setAdapter(adapter);
     }
 
-    public void addAnoSpinner(String municipio) {
-        String prefixo = postoDao.getPrefixoMunicipio(municipio);
+    public void addAnoSpinner(String prefixo) {
         ArrayList<String> ano = postoDao.getAno(prefixo);
 
         int tam1 = ano.get(0).length();

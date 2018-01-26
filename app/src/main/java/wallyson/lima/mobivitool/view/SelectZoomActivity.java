@@ -27,22 +27,23 @@ public class SelectZoomActivity extends AppCompatActivity {
         btSelecionar = (Button) findViewById(R.id.btSelecionar);
         postoDao = new PostoDAO();
 
-        addMunicipioSpinner();
+        addPrefixoMunicipioSpinner();
 
         btSelecionar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(SelectZoomActivity.this, ZoomActivity.class);
-                intent.putExtra("prefixo", postoDao.getPrefixoMunicipio(spinPrefixo.getSelectedItem().toString()));
+                String[] pre = spinPrefixo.getSelectedItem().toString().split("/");
+                intent.putExtra("prefixo", pre[0]);
                 startActivity(intent);
             }
         });
     }
 
-    public void addMunicipioSpinner() {
-        ArrayList<String> municipio = postoDao.getMunicipio();
+    public void addPrefixoMunicipioSpinner() {
+        ArrayList<String> premuni = postoDao.getPrefixoAndMunicipio();
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, municipio);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, premuni);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinPrefixo.setAdapter(adapter);
     }

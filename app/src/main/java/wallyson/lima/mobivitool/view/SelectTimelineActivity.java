@@ -33,15 +33,18 @@ public class SelectTimelineActivity extends AppCompatActivity {
         btSelecionar = (Button) findViewById(R.id.btSelecionarTimeline);
         postoDao = new PostoDAO();
 
-        addMunicipioSpinner();
+        addPrefixoMunicipioSpinner();
 
         btSelecionar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(SelectTimelineActivity.this, TimelineActivity.class);
-                intent.putExtra("prefixo1", postoDao.getPrefixoMunicipio(spinPrefixo1.getSelectedItem().toString()));
-                intent.putExtra("prefixo2", postoDao.getPrefixoMunicipio(spinPrefixo2.getSelectedItem().toString()));
-                intent.putExtra("prefixo3", postoDao.getPrefixoMunicipio(spinPrefixo3.getSelectedItem().toString()));
+                String[] pre1 = spinPrefixo1.getSelectedItem().toString().split("/");
+                String[] pre2 = spinPrefixo2.getSelectedItem().toString().split("/");
+                String[] pre3 = spinPrefixo3.getSelectedItem().toString().split("/");
+                intent.putExtra("prefixo1", pre1[0]);
+                intent.putExtra("prefixo2", pre2[0]);
+                intent.putExtra("prefixo3", pre3[0]);
                 intent.putExtra("ano1", spinAno1.getSelectedItem().toString());
                 intent.putExtra("ano2", spinAno2.getSelectedItem().toString());
                 intent.putExtra("ano3", spinAno3.getSelectedItem().toString());
@@ -52,7 +55,8 @@ public class SelectTimelineActivity extends AppCompatActivity {
         spinPrefixo1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                addAno1Spinner(spinPrefixo1.getSelectedItem().toString());
+                String[] pre1 = spinPrefixo1.getSelectedItem().toString().split("/");
+                addAno1Spinner(pre1[0]);
             }
 
             @Override
@@ -64,7 +68,8 @@ public class SelectTimelineActivity extends AppCompatActivity {
         spinPrefixo2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                addAno2Spinner(spinPrefixo2.getSelectedItem().toString());
+                String[] pre2 = spinPrefixo2.getSelectedItem().toString().split("/");
+                addAno2Spinner(pre2[0]);
             }
 
             @Override
@@ -76,7 +81,8 @@ public class SelectTimelineActivity extends AppCompatActivity {
         spinPrefixo3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                addAno3Spinner(spinPrefixo3.getSelectedItem().toString());
+                String[] pre3 = spinPrefixo3.getSelectedItem().toString().split("/");
+                addAno3Spinner(pre3[0]);
             }
 
             @Override
@@ -86,18 +92,17 @@ public class SelectTimelineActivity extends AppCompatActivity {
         });
     }
 
-    public void addMunicipioSpinner() {
-        ArrayList<String> municipio = postoDao.getMunicipio();
+    public void addPrefixoMunicipioSpinner() {
+        ArrayList<String> premuni = postoDao.getPrefixoAndMunicipio();
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, municipio);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, premuni);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinPrefixo1.setAdapter(adapter);
         spinPrefixo2.setAdapter(adapter);
         spinPrefixo3.setAdapter(adapter);
     }
 
-    public void addAno1Spinner(String municipio) {
-        String prefixo = postoDao.getPrefixoMunicipio(municipio);
+    public void addAno1Spinner(String prefixo) {
         ArrayList<String> ano = postoDao.getAno(prefixo);
 
         int tam1 = ano.get(0).length();
@@ -122,8 +127,7 @@ public class SelectTimelineActivity extends AppCompatActivity {
         spinAno1.setAdapter(adapter);
     }
 
-    public void addAno2Spinner(String municipio) {
-        String prefixo = postoDao.getPrefixoMunicipio(municipio);
+    public void addAno2Spinner(String prefixo) {
         ArrayList<String> ano = postoDao.getAno(prefixo);
 
         int tam1 = ano.get(0).length();
@@ -148,8 +152,7 @@ public class SelectTimelineActivity extends AppCompatActivity {
         spinAno2.setAdapter(adapter);
     }
 
-    public void addAno3Spinner(String municipio) {
-        String prefixo = postoDao.getPrefixoMunicipio(municipio);
+    public void addAno3Spinner(String prefixo) {
         ArrayList<String> ano = postoDao.getAno(prefixo);
 
         int tam1 = ano.get(0).length();

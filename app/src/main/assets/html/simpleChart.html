@@ -54,10 +54,22 @@ body {
   top: 100%;
   left: 0;
 }
+
+h1 {
+    text-align: center;
+    color: #00BCD4;
+    font-family: arial, serif, Times;
+    border-bottom: 1px solid #00BCD4;
+    font-size: 10px;
+}
 </style>
 <body>
 <script>
+    var prefixo = window.AndroidSimple.getPrefixo();
+    var municipio = window.AndroidSimple.getMunicipio();
+    var ano = window.AndroidSimple.getAno();
     var tipo = window.AndroidSimple.getTipo();
+    document.write("<h1>  Média Chuva p/ Mês: " + prefixo + "/" + municipio + "/" + ano + "</h1>");
     document.write("<div id='tipo' value='" + tipo + "'></div>");
 </script>
 <script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>

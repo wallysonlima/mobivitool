@@ -36,5 +36,14 @@ public class SimplePresenter {
     }
 
     @JavascriptInterface
+    public String getPrefixo() { return mView.getPrefixo(); }
+
+    @JavascriptInterface
+    public String getAno() { return mView.getAno(); }
+
+    @JavascriptInterface
+    public String getMunicipio() { return mView.getMunicipio(); }
+
+    @JavascriptInterface
     public String getTipo() { return mView.getTipo(); }
 }

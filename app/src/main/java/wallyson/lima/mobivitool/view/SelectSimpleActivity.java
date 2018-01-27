@@ -43,6 +43,7 @@ public class SelectSimpleActivity extends AppCompatActivity {
                 intent.putExtra("prefixo", pre[0]);
                 intent.putExtra("ano", spinAno.getSelectedItem().toString());
                 intent.putExtra("tipo", rbMedia.isChecked() ? "media" : "mes" );
+                intent.putExtra("municipio", pre[1]);
                 startActivity(intent);
             }
         });

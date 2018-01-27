@@ -6,4 +6,7 @@ package wallyson.lima.mobivitool.presenter;
 
 public interface SimpleInterface {
     public String getTipo();
+    public String getPrefixo();
+    public String getAno();
+    public String getMunicipio();
 }

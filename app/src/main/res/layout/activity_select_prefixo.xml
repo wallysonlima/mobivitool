@@ -20,12 +20,22 @@
             android:layout_width="match_parent"
             android:layout_height="60dp" />
 
+        <Spinner
+            android:id="@+id/spinAnoZoom"
+            android:layout_width="match_parent"
+            android:layout_height="60dp" />
+
+        <Spinner
+            android:id="@+id/spinQtde"
+            android:layout_width="match_parent"
+            android:layout_height="60dp" />
+
         <Button
             android:id="@+id/btSelecionar"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="80dp"
-            android:layout_marginTop="370dp"
+            android:layout_marginTop="260dp"
             android:text="Selecionar" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

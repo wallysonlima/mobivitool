@@ -55,6 +55,25 @@ public class ZoomPresenter {
         return webview.getHeight();
     }
 
+    //Get height webview
+    @JavascriptInterface
+    public String getPrefixo() {
+        return mView.getPrefixo();
+    }
+
+    //Get height webview
+    @JavascriptInterface
+    public String getMunicipio() {
+        return mView.getMunicipio();
+    }
+
+    //Get height webview
+    @JavascriptInterface
+    public String getAno() {
+        return mView.getAno();
+    }
+
+
     /*
     @JavascriptInterface
     public JSONArray getMediaChuvaMes() {

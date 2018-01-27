@@ -6,4 +6,6 @@ package wallyson.lima.mobivitool.presenter;
 
 public interface ZoomInterface {
     String getPrefixo();
+    String getMunicipio();
+    String getAno();
 }

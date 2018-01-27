@@ -36,7 +36,7 @@ public class ZoomActivity extends AppCompatActivity implements ZoomInterface {
     private ActionBarDrawerToggle mToggle;
     private WebView webview;
     private ZoomPresenter mPresenter;
-    private String prefixo;
+    private String prefixo, municipio, ano, qtde;
     private String nomeArquivo;
 
     @Override
@@ -55,6 +55,9 @@ public class ZoomActivity extends AppCompatActivity implements ZoomInterface {
         mPresenter = new ZoomPresenter(this, this.getApplicationContext(), webview);
         nomeArquivo = "zoom.csv";
         prefixo = getIntent().getStringExtra("prefixo");
+        municipio = getIntent().getStringExtra("municipio");
+        ano = getIntent().getStringExtra("ano");
+        qtde = getIntent().getStringExtra("qtde");
         //load the chart
         writeData();
         loadChart("html/zoomChart.html");
@@ -112,10 +115,11 @@ public class ZoomActivity extends AppCompatActivity implements ZoomInterface {
     // Write data in Zoom.csv
     public void writeData() {
         PrecipitacaoDAO preDao = new PrecipitacaoDAO();
-        ArrayList<Precipitacao> arrayPre = preDao.getMediaChuvaMes(prefixo);
+        ArrayList<Precipitacao> arrayPre = preDao.getMediaChuvaMes(prefixo, ano);
         String texto = "date,price\n";
         FileOutputStream outputStream;
         int i = 0;
+        int limite = Integer.parseInt(qtde) * 12;
 
         for (Precipitacao p: arrayPre) {
 
@@ -158,7 +162,7 @@ public class ZoomActivity extends AppCompatActivity implements ZoomInterface {
                     break;
             }
             i++;
-            if ( i == 72 ) break;
+            if ( i == limite ) break;
         }
 
         try {
@@ -182,5 +186,13 @@ public class ZoomActivity extends AppCompatActivity implements ZoomInterface {
 
     public String getPrefixo() {
         return this.prefixo;
+    }
+
+    public String getMunicipio() {
+        return this.municipio;
+    }
+
+    public String getAno() {
+        return this.ano;
     }
 }

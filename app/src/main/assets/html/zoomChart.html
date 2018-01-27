@@ -14,6 +14,14 @@
   pointer-events: all;
 }
 
+h1 {
+    text-align: center;
+    color: #00BCD4;
+    font-family: arial, serif, Times;
+    border-bottom: 1px solid #00BCD4;
+    font-size: 10px;
+}
+
 </style>
 <head>
     <script type="text/javascript" src="http://d3js.org/d3.v4.min.js"></script>
@@ -24,11 +32,16 @@
 
 <script  type="text/javascript">
   //var width = window.AndroidZoom.getWidth();
-  var height = window.AndroidZoom.getHeight();
+  //var height = window.AndroidZoom.getHeight();
   //document.write(width);
   //document.write(height);
+  var prefixo = window.AndroidZoom.getPrefixo();
+  var municipio = window.AndroidZoom.getMunicipio();
+  var ano = window.AndroidZoom.getAno();
+
   var width = 365;
-  var height = 500;
+  var height = 485;
+  document.write("<h1>  Média Chuva p/ Mês: " + prefixo + "/" + municipio + "/" + ano + "</h1>");
   document.write("<svg width=" + width + " height=" + height + "></svg>");
   //getMediaChuva(window.AndroidZoom.getMediaChuva().toString());
 </script>

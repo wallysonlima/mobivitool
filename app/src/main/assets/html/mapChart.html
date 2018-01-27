@@ -2,9 +2,23 @@
 <meta charset="utf-8">
 <head>
 <link rel="stylesheet" type="text/css" href="css/map.css">
+    <style>
+        h1 {
+            text-align: center;
+            color: #00BCD4;
+            font-family: arial, serif, Times;
+            border-bottom: 1px solid #00BCD4;
+            font-size: 10px;
+        }
+    </style>
 </head>
 
 <body>
+    <script>
+        var ano = window.AndroidMap.getAno();
+        var mes = window.AndroidMap.getNomeMes();
+        document.write("<h1>  Média Chuva ao ano p/ Mês: " + mes + "/" + ano + "</h1>");
+    </script>
     <div id="map_4"></div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="http://d3js.org/d3.v4.min.js" charset="utf-8"></script>

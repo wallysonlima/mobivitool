@@ -5,4 +5,6 @@ package wallyson.lima.mobivitool.presenter;
  */
 
 public interface MapInterface {
+    public String getAno();
+    public String getNomeMes();
 }

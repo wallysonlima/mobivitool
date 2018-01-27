@@ -30,7 +30,7 @@ import wallyson.lima.mobivitool.presenter.MapPresenter;
 public class MapActivity extends AppCompatActivity implements MapInterface {
     private WebView webview;
     private MapPresenter mPresenter;
-    private String ano, mes, nomeArquivo;
+    private String ano, mes, nomeArquivo, nome_mes;
     private int mesInt;
 
     @Override
@@ -44,6 +44,7 @@ public class MapActivity extends AppCompatActivity implements MapInterface {
         mPresenter = new MapPresenter(this, this.getApplicationContext(), webview);
         nomeArquivo = "map.csv";
         ano = getIntent().getStringExtra("ano");
+        nome_mes = getIntent().getStringExtra("nome_mes");
         mesInt = getIntent().getIntExtra("mes", 0);
         mesInt++;
 
@@ -131,4 +132,7 @@ public class MapActivity extends AppCompatActivity implements MapInterface {
     }
 }
 
+    public String getAno() { return this.ano; }
+
+    public String getNomeMes() { return this.nome_mes ; }
 }

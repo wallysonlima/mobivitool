@@ -1,6 +1,6 @@
 // Define global variables
 var width_4 = 400,
-height_4 = 300,
+height_4 = 260,
 centered;
 
 function createNYCMap(){

@@ -42,4 +42,16 @@ public class MapPresenter {
     public int getHeight() {
         return webview.getHeight();
     }
+
+    //Get height webview
+    @JavascriptInterface
+    public String getAno() {
+        return mView.getAno();
+    }
+
+    //Get height webview
+    @JavascriptInterface
+    public String getNomeMes() {
+        return mView.getNomeMes();
+    }
 }

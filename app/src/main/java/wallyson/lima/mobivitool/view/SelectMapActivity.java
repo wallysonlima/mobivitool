@@ -41,6 +41,7 @@ public class SelectMapActivity extends AppCompatActivity {
                 Intent intent = new Intent(SelectMapActivity.this, MapActivity.class);
                 intent.putExtra("ano", spinAno.getSelectedItem().toString());
                 intent.putExtra("mes", spinMes.getSelectedItemPosition());
+                intent.putExtra("nome_mes", spinMes.getSelectedItem().toString());
                 startActivity(intent);
             }
         });

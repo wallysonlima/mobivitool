@@ -113,9 +113,7 @@ public class TimelineActivity extends AppCompatActivity implements TimelineInter
         ArrayList<Precipitacao> arrayPre1 = preDao.getMediaChuvaAno(prefixo1, ano1);
         ArrayList<Precipitacao> arrayPre2 = preDao.getMediaChuvaAno(prefixo2, ano2);
         ArrayList<Precipitacao> arrayPre3 = preDao.getMediaChuvaAno(prefixo3, ano3);
-        String nome1 = postoDao.getNome(prefixo1);
-        String nome2 = postoDao.getNome(prefixo2);
-        String nome3 = postoDao.getNome(prefixo3);
+        ArrayList<String> arrayNome = postoDao.getNome(prefixo1, prefixo2, prefixo3);
         String texto = "";
 
         int tam1 = arrayPre1.size();
@@ -133,7 +131,12 @@ public class TimelineActivity extends AppCompatActivity implements TimelineInter
         else
             tamanho = tam3;
 
-        texto = "date,Nome:" + nome1 + ",Nome:" + nome2 + ",Nome:" + nome3 + "\n";
+        if ( arrayNome.size() == 3)
+            texto = "date,Nome:" + arrayNome.get(0) + ",Nome:" + arrayNome.get(1) + ",Nome:" + arrayNome.get(2) + "\n";
+        else {
+            Toast.makeText(getApplicationContext(), "Erro ! Selecione Arquivos Diferentes !", Toast.LENGTH_SHORT).show();
+            finish();
+        }
 
         FileOutputStream outputStream;
 

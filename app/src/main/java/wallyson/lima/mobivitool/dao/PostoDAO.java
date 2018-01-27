@@ -156,10 +156,12 @@ public class PostoDAO {
         return ano;
     }
 
-    public String getNome(String prefixo) {
+    public ArrayList<String> getNome(String prefixo1, String prefixo2, String prefixo3) {
         DB con = new DB();
-        String sql = "SELECT nome FROM `posto` where prefixo='" + prefixo + "';";
+        String sql = "SELECT nome FROM `posto` where prefixo IN('" + prefixo1 + "', '" +
+                prefixo2 + "', '" + prefixo3 + "');";
 
+        ArrayList<String> nome = new ArrayList<>();
         ResultSet rs = null;
 
         try {
@@ -167,7 +169,7 @@ public class PostoDAO {
 
             if ( rs != null ) {
                 while( rs.next() ) {
-                    return rs.getString("nome");
+                    nome.add(rs.getString("nome"));
                 }
             }
 
@@ -177,7 +179,7 @@ public class PostoDAO {
             con.desconecta();
         }
 
-        return null;
+        return nome;
     }
 
     public ArrayList<Posto> getInfoPosto() {

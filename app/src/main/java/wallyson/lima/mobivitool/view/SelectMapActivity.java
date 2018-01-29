@@ -104,7 +104,7 @@ public class SelectMapActivity extends AppCompatActivity {
     }
 
     public void addMesSpinner(String prefixo, String ano) {
-        int qtde = preDao.getMes(prefixo, ano);
+        int qtde = preDao.getQtdeMes(prefixo, ano);
         ArrayList<String> mes = new ArrayList<>();
 
         for ( int i = 0; i < qtde; i++) {

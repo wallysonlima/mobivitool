@@ -10,9 +10,9 @@ import java.sql.ResultSet;
 
 public class DB extends _Default implements Runnable {
     private Connection conn;
-    //private String host = "192.168.1.111";
-    private String host = "192.168.0.120";
-    private String db = "mobivitool";
+    private String host = "192.168.0.111";
+    //private String host = "192.168.0.120";
+    private String db = "mobivitool2";
     private int port = 3306;
     private String user = "root";
     private String password = "Unicamp2011&";

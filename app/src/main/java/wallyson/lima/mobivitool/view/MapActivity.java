@@ -111,7 +111,7 @@ public class MapActivity extends AppCompatActivity implements MapInterface {
     public void writeData() {
         PrecipitacaoDAO preDao = new PrecipitacaoDAO();
         PostoDAO postoDao = new PostoDAO();
-        ArrayList<Float> medias = preDao.getMediaChuvaPorMes(ano, mes);
+        ArrayList<Float> medias = preDao.getMediaChuvaMesPostos(ano, mes);
         ArrayList<Posto> postos = postoDao.getInfoPosto();
         String texto = "municipio,prefixo,bacia,latitude,longitude,media\n";
         FileOutputStream outputStream;

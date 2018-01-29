@@ -3,6 +3,7 @@ package wallyson.lima.mobivitool.dao;
 import java.sql.Array;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import wallyson.lima.mobivitool.factory_method.DB;
@@ -14,12 +15,13 @@ import wallyson.lima.mobivitool.model.Precipitacao;
 
 public class PrecipitacaoDAO {
 
+    // Get average rain all months in the year, start in specific year
     public ArrayList<Precipitacao> getMediaChuvaMes(String prefixo, String ano) {
         DB con = new DB();
         String sql = "SELECT ano, mes, " +
-                "truncate(((d1 + d2 + d3 + d4 + d5 + d6 + d7 + d8 + d9 + d10 + d11 + d12 + d13 + d14 + " +
-                "d15 + d16 + d17 + d18 + d19 + d20 + d21 + d22 + d23 + d24 + d25 + d26 + d27 + d28 + " +
-                "d29 + d30 + d31) / 31), 2) as media FROM `precipitacao` WHERE prefixo='" + prefixo + ".dat' and ano >='" + ano + "' group by ano, mes";
+                "d1, d2, d3, d4, d5, d6, d7, d8, d9, d10," +
+                " d11, d12, d13, d14, d15, d16, d17, d18, d19, d20, d21, d22, d23, d24, d25, d26, d27," +
+                " d28, d29, d30, d31 FROM `precipitacao` WHERE prefixo='" + prefixo + ".dat' and ano >='" + ano + "' group by ano, mes";
 
         ArrayList<Precipitacao> pre = new ArrayList<>();
         ResultSet rs = null;
@@ -29,8 +31,15 @@ public class PrecipitacaoDAO {
 
             if ( rs != null ) {
                 while( rs.next() ) {
+                    ArrayList<Float> dias = new ArrayList<>();
+
+                    for(int i= 1; i<= 31; i++)
+                        dias.add(Float.parseFloat(rs.getString("d" + i)));
+
+                    float media = getMedia(dias);
+
                     Precipitacao obj = new Precipitacao(prefixo,
-                            rs.getString("ano"), rs.getString("mes"), rs.getFloat("media"));
+                            rs.getString("ano"), rs.getString("mes"), media);
 
                     pre.add(obj);
                 }
@@ -44,13 +53,13 @@ public class PrecipitacaoDAO {
         return pre;
     }
 
+    // Get average rain all months in the year
     public ArrayList<Precipitacao> getMediaChuvaAno(String prefixo, String ano) {
         DB con = new DB();
-        String sql = "SELECT ano, mes, " +
-                "truncate(((d1 + d2 + d3 + d4 + d5 + d6 + d7 + d8 + d9 + d10 + d11 + d12 + d13 + d14 + " +
-                "d15 + d16 + d17 + d18 + d19 + d20 + d21 + d22 + d23 + d24 + d25 + d26 + d27 + d28 + " +
-                "d29 + d30 + d31) / 31), 2) as media FROM `precipitacao` WHERE prefixo='" + prefixo + ".dat' " +
-                "and ano= '" + ano + "' group by mes;";
+        String sql = "SELECT ano, mes, d1, d2, d3, d4, d5, d6, d7, d8, d9, d10," +
+                " d11, d12, d13, d14, d15, d16, d17, d18, d19, d20, d21, d22, d23, d24, d25, d26, d27," +
+                " d28, d29, d30, d31 FROM `precipitacao` WHERE prefixo='" + prefixo + ".dat' and" +
+                " ano='" + ano + "' group by mes;";
 
         ArrayList<Precipitacao> pre = new ArrayList<>();
         ResultSet rs = null;
@@ -60,8 +69,15 @@ public class PrecipitacaoDAO {
 
             if ( rs != null ) {
                 while( rs.next() ) {
+                    ArrayList<Float> dias = new ArrayList<>();
+
+                    for(int i= 1; i<= 31; i++)
+                        dias.add(Float.parseFloat(rs.getString("d" + i)));
+
+                    float media = getMedia(dias);
+
                     Precipitacao obj = new Precipitacao(prefixo,
-                            ano, rs.getString("mes"), rs.getFloat("media"));
+                            ano, rs.getString("mes"), media);
 
                     pre.add(obj);
                 }
@@ -75,12 +91,32 @@ public class PrecipitacaoDAO {
         return pre;
     }
 
-    public ArrayList<Float> getMediaChuvaPorMes(String ano, String mes) {
+    // Get average rain in a month
+    public float getMedia(ArrayList<Float> dias) {
+        DecimalFormat decimalFormat = new DecimalFormat("#.00");
+        float media = 0.0f;
+        int count = 0;
+
+        for(Float d: dias) {
+            if (d != 9999) {
+                media += d;
+                count++;
+            }
+        }
+
+        if ( count == 0 )
+            return 0.0f;
+
+        return Float.parseFloat(decimalFormat.format((media / (++count))));
+    }
+
+    // Get average rain all months in year all postos sp
+    public ArrayList<Float> getMediaChuvaMesPostos(String ano, String mes) {
         DB con = new DB();
         String sql = "SELECT " +
-                "truncate(((d1 + d2 + d3 + d4 + d5 + d6 + d7 + d8 + d9 + d10 + d11 + d12 + d13 + d14 + " +
-                "d15 + d16 + d17 + d18 + d19 + d20 + d21 + d22 + d23 + d24 + d25 + d26 + d27 + d28 + " +
-                "d29 + d30 + d31) / 31), 2) as media FROM `precipitacao` WHERE prefixo IN (" +
+                "d1, d2, d3, d4, d5, d6, d7, d8, d9, d10," +
+                " d11, d12, d13, d14, d15, d16, d17, d18, d19, d20, d21, d22, d23, d24, d25, d26, d27," +
+                " d28, d29, d30, d31 FROM `precipitacao` WHERE prefixo IN (" +
                 "'D4-004.dat', 'B7-047.dat', " +
                 "'C5-008.dat', 'D7-020.dat', 'E3-074.dat', 'D5-080.dat', 'B5-002.dat', 'D6-001.dat', 'D5-019.dat', " +
                 "'D3-002.dat', 'E5-047.dat', 'E3-038.dat', 'C8-043.dat', 'B4-001.dat', 'E3-002.dat', 'E4-135.dat', 'E4-023.dat', 'C5-025.dat', " +
@@ -97,7 +133,14 @@ public class PrecipitacaoDAO {
 
             if ( rs != null ) {
                 while( rs.next() ) {
-                    pre.add(rs.getFloat("media"));
+                    ArrayList<Float> dias = new ArrayList<>();
+
+                    for(int i= 1; i<= 31; i++)
+                        dias.add(Float.parseFloat(rs.getString("d" + i)));
+
+                    float media = getMedia(dias);
+
+                    pre.add(media);
                 }
             }
         } catch (SQLException e) {
@@ -109,7 +152,8 @@ public class PrecipitacaoDAO {
         return pre;
     }
 
-    public int getMes(String prefixo, String ano) {
+    // Get quantity all months the year
+    public int getQtdeMes(String prefixo, String ano) {
         DB con = new DB();
         String sql = "SELECT COUNT(mes) as qtde FROM `precipitacao` WHERE prefixo='" + prefixo + ".dat'" +
                 " and ano='" + ano + "';";

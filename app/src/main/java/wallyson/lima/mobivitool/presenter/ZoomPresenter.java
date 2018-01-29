@@ -86,7 +86,7 @@ public class ZoomPresenter {
                 tmp = new JSONObject();
                 tmp.put("prefixo", arrayPre.get(i).getPrefixo()); //some public getters inside GraphUser?
                 tmp.put("ano", arrayPre.get(i).getAno());
-                tmp.put("mes", arrayPre.get(i).getMes());
+                tmp.put("mes", arrayPre.get(i).getQtdeMes());
                 tmp.put("media", arrayPre.get(i).getAno());
                 arr.put(tmp);
             }

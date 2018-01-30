@@ -22,6 +22,7 @@ data of the state of São Paulo. </h3>
 </ul>
 
 ![Mobivitool main](https://github.com/WallysonNunes/mobivitool/blob/master/Printscreens/main.png)
+![ZoomChart](https://github.com/WallysonNunes/mobivitool/blob/master/Printscreens/zoomChart.png)
 ![SimpleChart](https://github.com/WallysonNunes/mobivitool/blob/master/Printscreens/simpleChart.png)
 ![MapChart](https://github.com/WallysonNunes/mobivitool/blob/master/Printscreens/mapChart.png)
 ![MapChart2](https://github.com/WallysonNunes/mobivitool/blob/master/Printscreens/mapChart2.png)

@@ -4,16 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="wallyson.lima.mobivitool.view.HorizontActivity">
+    tools:context="wallyson.lima.mobivitool.view.WebvitoolActivity">
 
-    <LinearLayout
+    <WebView
+        android:id="@+id/webviewweb"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent" />
 
-        <WebView
-            android:id="@+id/webviewhorizont"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-    </LinearLayout>
 </android.support.constraint.ConstraintLayout>

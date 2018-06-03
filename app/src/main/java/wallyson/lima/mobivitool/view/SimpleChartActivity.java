@@ -50,6 +50,7 @@ public class SimpleChartActivity extends AppCompatActivity implements SimpleInte
         loadChart("html/simpleChart.html");
     }
 
+
     // initialize the WebView and the pie chart
     public void loadChart(String remoteUrl)
     {
@@ -74,7 +75,7 @@ public class SimpleChartActivity extends AppCompatActivity implements SimpleInte
             InputStream in = mgr.open(remoteUrl, AssetManager.ACCESS_BUFFER);
             html = readHtml(in);
             in.close();
-            webview.loadDataWithBaseURL("file:///android_asset/", html, "text/html", "UTF-8", null);
+            webview.loadDataWithBaseURL("192.168.0.116/webvitool/view/webvitool.php", html, "text/html", "UTF-8", null);
             //webview.loadUrl("file:///android_asset/html/piechart.html");
         } catch (IOException e) {
             e.printStackTrace();

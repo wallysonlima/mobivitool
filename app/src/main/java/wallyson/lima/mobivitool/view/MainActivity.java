@@ -9,7 +9,7 @@ import android.widget.ImageButton;
 import wallyson.lima.mobivitool.R;
 
 public class MainActivity extends AppCompatActivity {
-    private ImageButton btTimeline, btZoom, btMap, btSimple, btHorizont;
+    private ImageButton btTimeline, btZoom, btMap, btSimple, btHorizont, btWebvitool;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
         btMap = (ImageButton) findViewById(R.id.btMap);
         btSimple = (ImageButton) findViewById(R.id.btSimple);
         btHorizont = (ImageButton) findViewById(R.id.btHorizont);
+        btWebvitool = (ImageButton) findViewById(R.id.btWebvitool);
 
         btTimeline.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,6 +58,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, SelectHorizontActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btWebvitool.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, WebvitoolActivity.class);
                 startActivity(intent);
             }
         });

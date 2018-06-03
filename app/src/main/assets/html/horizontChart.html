@@ -163,7 +163,8 @@ header {
       var stocks = _.keys(data[0]);
 
       data = _.map(stocks, function(stockSymbol, i) {
-        var compare = +data[0][stockSymbol];
+        //var compare = +data[0][stockSymbol];
+        var compare = 0;
         return _.map(d3.range(data.length), function(idx) {
           return compareToBaseline ?
             showChangeInPercent ? ((+data[idx][stockSymbol] - compare) / compare) : (+data[idx][stockSymbol] - compare)

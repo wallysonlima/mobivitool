@@ -126,8 +126,8 @@ public class HorizontActivity extends AppCompatActivity {
         int tamanho = tam.get(0);
 
         if ( tamanho != 0 )
-            texto = "_time,WIKI/" + municipio1 + ",WIKI/" + municipio2 + ",WIKI/" + municipio3 +
-                    ",WIKI/" + municipio4 + ",WIKI/" + municipio5 + "\n";
+            texto = "\"_time\",\"WIKI/" + municipio1 + "\",\"WIKI/" + municipio2 + "\",\"WIKI/" + municipio3 +
+                    "\",\"WIKI/" + municipio4 + "\",\"WIKI/" + municipio5 + "\"\n";
         else {
             Toast.makeText(getApplicationContext(), "Erro ! Algum municipio nao possue dados para o ano correspondente !", Toast.LENGTH_SHORT).show();
             finish();
@@ -136,9 +136,9 @@ public class HorizontActivity extends AppCompatActivity {
         FileOutputStream outputStream;
 
         for (int i = 0; i < tamanho; i++ ) {
-            texto += pre1.get(i).getAno() + "-" + pre1.get(i).getMes() + "," +
-                    pre1.get(i).getMedia() + "," + pre2.get(i).getMedia() + "," + pre3.get(i).getMedia() +
-                    "," + pre4.get(i).getMedia() + "," + pre5.get(i).getMedia() + "\n";
+            texto += "\"" + pre1.get(i).getAno() + "-" + pre1.get(i).getMes() + "-12T00:00:00.000-0800\",\"" +
+                    pre1.get(i).getMedia() + "\",\"" + pre2.get(i).getMedia() + "\",\"" + pre3.get(i).getMedia() +
+                    "\",\"" + pre4.get(i).getMedia() + "\",\"" + pre5.get(i).getMedia() + "\"\n";
         }
 
         try {

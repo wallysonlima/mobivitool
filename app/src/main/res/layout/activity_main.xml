@@ -93,6 +93,16 @@
             android:background="@mipmap/ic_multiline"
             android:elevation="18dp"
             app:srcCompat="@mipmap/ic_multiline" />
+
+        <ImageButton
+            android:id="@+id/btWebvitool"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:background="@mipmap/ic_mobivitool"
+            android:elevation="18dp"
+            app:srcCompat="@mipmap/ic_mobivitool" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

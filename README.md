@@ -29,3 +29,6 @@ data of the state of São Paulo. </h3>
 ![MultibarChart 1](https://github.com/WallysonNunes/mobivitool/blob/master/Printscreens/multibarChart1.png)
 ![MultibarChart 2](https://github.com/WallysonNunes/mobivitool/blob/master/Printscreens/multibarChart2.png)
 ![HorizonChart](https://github.com/WallysonNunes/mobivitool/blob/master/Printscreens/horizont.png)
+
+<hr>
+<h5>Developed by Wallyson Lima</h5>

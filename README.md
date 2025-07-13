@@ -14,6 +14,8 @@ data of the state of São Paulo. </h3>
 
 
 <ul>
+  <li>Android</li>
+  <li>Java</li>
   <li>Remote Connection with database Mysql</li>
   <li>HTML/Css, Javascript</li>
   <li>D3.js</li>
